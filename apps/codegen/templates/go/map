@@ -1,0 +1,87 @@
+// {{.Name}} is a {{.Meta.Name}}
+type {{.Name}} {{.Meta.Name}}
+
+// New{{.Name}} creates a new instance of {{.Name}}
+func New{{.Name}}() {{.Name}} {
+	return make({{.Name}})
+}
+
+func (m {{.Name}}) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	item := New{{.Meta.ElementTypeName}}()
+	if err := d.DecodeElement(item, &start); err != nil {
+		return err
+	}
+	m.Add(item)
+	return nil
+}
+
+// Contains returns true if {{.Meta.ElementName}}.{{.Meta.KeyName}} key exists in the {{.Name}}
+func (this {{.Name}}) Contains({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	_, ok := this[{{.Meta.ElementName}}.{{.Meta.KeyName}}]
+	return ok
+}
+
+// ContainsKey returns true if the key exists in the {{.Name}}
+func (this {{.Name}}) ContainsKey(key {{.Meta.KeyType}}) bool {
+	_, ok := this[key]
+	return ok
+}
+
+// Len returns the number of entries in the {{.Name}}
+func (this {{.Name}}) Len() int {
+	return len(this)
+}
+
+// Add adds the {{.Meta.ElementName}} using {{.Meta.ElementName}}.{{.Meta.KeyName}} as the key
+func (this {{.Name}}) Add({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	if !this.Contains({{.Meta.ElementName}}) {
+		this[{{.Meta.ElementName}}.{{.Meta.KeyName}}] = {{.Meta.ElementName}}
+		return true
+	}
+	return false
+}
+
+// DelKey removes the {{.Meta.ElementName}} by key
+func (this {{.Name}}) DelKey(key {{.Meta.KeyType}}) bool {
+	if this.ContainsKey(key) {
+		delete(this,key)
+		return true
+	}
+	return false
+}
+
+// Del removes the {{.Meta.ElementName}} by {{.Meta.ElementName}}.{{.Meta.KeyName}}
+func (this {{.Name}}) Del({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	if this.ContainsKey({{.Meta.ElementName}}.{{.Meta.KeyName}}) {
+		delete(this, {{.Meta.ElementName}}.{{.Meta.KeyName}})
+		return true
+	}
+	return false
+}
+
+// Keys returns a new []{{.Meta.KeyType}} of all keys
+func (this {{.Name}}) Keys() []{{.Meta.KeyType}} {
+	keys := make([]{{.Meta.KeyType}}, 0, this.Len())
+	for key, _ := range this {
+		keys = append(keys, key)
+	}
+	return keys
+}
+
+{{template "sortedkeys" .}}
+
+// Each calls f for each map entry
+func (this {{.Name}}) Each(f func({{.Meta.KeyType}}, {{.Meta.ElementType}})) {
+	for key, val := range this {
+		f(key, val)
+	}
+}
+
+// Values retuns a new []{{.Meta.ElementType}} containing all values
+func (this {{.Name}}) Values() []{{.Meta.ElementType}} {
+	values := make([]{{.Meta.ElementType}}, 0, this.Len())
+	for _, value := range this {
+		values = append(values, value)
+	}
+	return values
+}

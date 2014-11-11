@@ -1,0 +1,11 @@
+type {{.Name}}Interface interface {
+	Add({{.Meta.ElementName}} {{.Meta.ElementType}}) bool
+	Contains({{.Meta.ElementName}} {{.Meta.ElementType}}) bool
+	ContainsKey(key {{.Meta.KeyType}}) bool
+	Del({{.Meta.ElementName}} {{.Meta.ElementType}}) bool
+	DelKey(key {{.Meta.KeyType}}) bool
+	Each(f func({{.Meta.KeyType}}, {{.Meta.ElementType}}))
+	Keys() []{{.Meta.KeyType}}
+	Len() int
+	Values() []{{.Meta.ElementType}}
+}

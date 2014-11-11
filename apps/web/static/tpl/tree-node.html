@@ -1,0 +1,8 @@
+<div class="tree-label">
+	<span ng-click="toggleExpanded($event, node)" ng-show="node.isExpanded">V</span>
+	<span ng-click="toggleExpanded($event, node)" ng-hide="node.isExpanded">&gt;</span>
+	<a href="#" title="{{node.name}}" context-menu>{{node.name}}</a>
+</div>
+<ul ng-if="node.isExpanded">
+    <li class="tree-node" ng-repeat="node in node.nodes" ng-include="'tpl/tree-node.html'" />
+</ul>

@@ -17,7 +17,6 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
-
 # OSX
 # =========================
 
@@ -41,3 +40,14 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+# executables
+*.exe
+
+# large folder
+i18n/
+
+# editor files
+.idea/
+*.iml

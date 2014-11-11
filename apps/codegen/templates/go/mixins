@@ -1,0 +1,11 @@
+{{define "sortedkeys"}}{{if eq .Meta.KeyType "string"}}
+// SortedKeys returns a new sorted []{{.Meta.KeyType}} of all keys
+func (this {{.Name}}) SortedKeys() []{{.Meta.KeyType}} {
+	keys := this.Keys()
+	sort.Strings(keys)
+	return keys
+}
+{{end}}{{end}}
+{{define "paramlist"}}({{range $i, $p := .Values }}{{if ne $i 0 }}, {{end}}{{$p.Name}} {{$p.DataType}}{{end}}){{end}}
+{{define "arglist"}}({{range $i, $p := .Values }}{{if ne $i 0 }}, {{end}}{{$p.Name}}{{end}}){{end}}
+

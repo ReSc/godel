@@ -1,0 +1,126 @@
+// {{.Name}} is an ordered map of {{.Meta.ElementType}} keyed by {{.Meta.ElementType}}.{{.Meta.KeyName}}
+// key lookups are an O(N) operation, so don't use it for large maps
+type {{.Name}} {{.Meta.Name}} {
+	list []{{.Meta.ElementType}}
+}
+
+// New{{.Name}} creates a new sorted map
+func New{{.Name}}() *{{.Name}} {
+	return &{{.Name}}{make([]{{.Meta.ElementType}}, 0, 8)}
+}
+
+func (this *{{.Name}}) Add({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	return this.InsertAt(this.Len(), {{.Meta.ElementName}} )
+}
+
+func (this *{{.Name}}) InsertAt(index int, {{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	if this.ContainsKey({{.Meta.ElementName}}.{{.Meta.KeyName}}) {
+		return false
+	}
+	if 0 > index || index > this.Len() {
+		return false
+	}
+	if index < this.Len() {
+		var defaultValue {{.Meta.ElementType}}
+		this.list = append(this.list, defaultValue)
+		copy(this.list[index+1:], this.list[index:])
+		this.list[index] = {{.Meta.ElementName}}
+	} else {
+		this.list = append(this.list, {{.Meta.ElementName}})
+	}
+	return true
+}
+
+func (this *{{.Name}}) Len() int {
+	return len(this.list)
+}
+
+func (this *{{.Name}}) Contains({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	return this.ContainsKey({{.Meta.ElementName}}.{{.Meta.KeyName}})
+}
+
+func (this *{{.Name}}) ContainsKey(key {{.Meta.KeyType}}) bool {
+	return this.IndexOfKey(key) >= 0
+}
+
+func (this *{{.Name}}) ContainsValue({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	return this.IndexOfValue({{.Meta.ElementName}}) >= 0
+}
+
+func (this *{{.Name}}) IndexOf({{.Meta.ElementName}} {{.Meta.ElementType}}) int {
+	return this.IndexOfKey({{.Meta.ElementName}}.{{.Meta.KeyName}})
+}
+
+func (this *{{.Name}}) IndexOfKey(key {{.Meta.KeyType}}) int {
+	for index, {{.Meta.ElementName}} := range this.list {
+		if {{.Meta.ElementName}}.{{.Meta.KeyName}} == key {
+			return index
+		}
+	}
+	return -1
+}
+
+func (this *{{.Name}}) IndexOfValue({{.Meta.ElementName}} {{.Meta.ElementType}}) int {
+	for index, {{.Meta.ElementName}}_ := range this.list {
+		if {{.Meta.ElementName}} == {{.Meta.ElementName}}_ {
+			return index
+		}
+	}
+	return -1
+}
+
+func (this *{{.Name}}) Each(f func({{.Meta.KeyType}}, {{.Meta.ElementType}})) {
+	for _, {{.Meta.ElementName}} := range this.list {
+		f({{.Meta.ElementName}}.{{.Meta.KeyName}}, {{.Meta.ElementName}})
+	}
+}
+
+func (this *{{.Name}}) Keys() []{{.Meta.KeyType}} {
+	keys := make([]{{.Meta.KeyType}}, 0, this.Len())
+	for _, {{.Meta.ElementName}} := range this.list {
+		keys = append(keys, {{.Meta.ElementName}}.{{.Meta.KeyName}})
+	}
+	return keys
+}
+
+{{template "sortedkeys" .}}
+
+func (this *{{.Name}}) Values() []{{.Meta.ElementType}} {
+	values := make([]{{.Meta.ElementType}}, this.Len())
+	copy(values, this.list)
+	return values
+}
+
+func (this *{{.Name}}) Del({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	return this.DelKey({{.Meta.ElementName}}.{{.Meta.KeyName}})
+}
+
+func (this *{{.Name}}) DelValue({{.Meta.ElementName}} {{.Meta.ElementType}}) bool {
+	index := this.IndexOfValue({{.Meta.ElementName}})
+	return this.DelAt(index)
+}
+
+func (this *{{.Name}}) DelKey(key {{.Meta.KeyType}}) bool {
+	index := this.IndexOfKey(key)
+	return this.DelAt(index)
+}
+
+func (this *{{.Name}}) DelAt(index int) bool {
+	if 0 <= index && index < this.Len() {
+		var defaultValue {{.Meta.ElementType}}
+		copy(this.list[index:], this.list[:index+1])
+		this.list[this.Len()-1] = defaultValue
+		this.list = this.list[:this.Len()-1]
+		return true
+	}
+	return false
+}
+
+func (this *{{.Name}}) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	{{.Meta.ElementName}} := New{{.Meta.ElementTypeName}}()
+	if err := d.DecodeElement({{.Meta.ElementName}}, &start); err != nil {
+		return err
+	}
+	this.Add({{.Meta.ElementName}})
+	return nil
+}

@@ -1,0 +1,4 @@
+type {{.Name}} interface {
+	{{range .Methods }}{{.Name}}{{template "paramlist" .Params}} {{template "paramlist" .Returns}}
+	{{end}}
+}

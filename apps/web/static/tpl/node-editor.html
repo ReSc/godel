@@ -1,0 +1,12 @@
+﻿<fieldset>
+    <legend>Edit {{node.name}}</legend>
+    <div>
+        <label for="name-{{node.id}}">Name</label>
+        <input id="name-{{node.id}}" type="text" value="{{node.name}}" />
+    </div>
+    <div ng-repeat="attr in node.attrs">
+        <label for="{{attr.name}}-{{node.id}}">{{attr.name}}</label>
+        <input id="{{attr.name}}-{{node.id}}" type="text" value="{{attr.value}}" />
+    </div>
+    <input type="button" ng-click="save(node)" value="Save" />
+</fieldset>

@@ -1,0 +1,23 @@
+{{define "structfieldinit" }}{{if .IsContainer }}{{.Name}}: New{{.FieldType.BaseName}}() ,{{else if .Value}}{{.Name}}: {{.Value}},
+{{end}}{{end}}
+{{define "structfield" }}	{{ .Name }} {{ .DataType }} {{if .Attrs}}`{{ range .Attrs}}{{ .Name }}:"{{.Value}}" {{end}}`{{end}}
+{{end}}
+{{define "structmethod" }}{{.Name}}{{template "paramlist" .Params}} {{template "paramlist" .Returns}}{{end}}
+{{define "struct"}}
+// {{ .Name }} is a {{ .Meta.Name }}
+type {{ .Name }} {{ .Meta.Name }} {
+	{{ range .Fields }} {{template "structfield" . }}{{end}}
+}
+
+// New{{ .Name }} creates a new instance of {{ .Name }}
+func New{{ .Name }}() *{{ .Name }} {
+	return &{{ .Name }}{
+		{{ range .Fields }}{{template "structfieldinit" . }}{{end}}
+	}
+}
+
+{{ range .Methods }}func (this *{{$.Name}}) {{template "structmethod" . }}{
+	this.do{{.Name}}{{template "arglist" .Params }}
+}
+{{end}}
+{{end}}
