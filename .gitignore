@@ -46,7 +46,7 @@ Temporary Items
 *.exe
 
 # large folder
-i18n/
+
 
 # editor files
 .idea/
