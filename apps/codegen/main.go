@@ -18,10 +18,12 @@ func main() {
 func run() {
 	model, err := loadModel("./model.xml")
 	PanicIf(err)
-	for _, p := range model.Packages {
-		if p.Name == "global" {
+
+	for _, name := range model.Packages.SortedKeys() {
+		if name == "global" {
 			continue
 		}
+		p := model.Packages[name]
 		file := render(p)
 		reformat(file)
 	}

@@ -7,18 +7,19 @@
 
         <!-- the global package contains the primitive data types -->
 
-		<type name="string" meta-type="primitive()"/>
+		<type name="string" meta-type="primitive(string)"/>
+		<type name="rune" meta-type="primitive(int32)"/>
 
-		<type name="bool"    meta-type="primitive()"/>
-		<type name="byte"    meta-type="primitive()"/>
-		<type name="int16"   meta-type="primitive()"/>
-		<type name="int32"   meta-type="primitive()"/>
-		<type name="int64"   meta-type="primitive()"/>
-		<type name="uint16"  meta-type="primitive()"/>
-		<type name="uint32"  meta-type="primitive()"/>
-		<type name="uint64"  meta-type="primitive()"/>
-		<type name="float32" meta-type="primitive()"/>
-		<type name="float64" meta-type="primitive()"/>
+		<type name="bool"    meta-type="primitive(bool)"/>
+		<type name="byte"    meta-type="primitive(byte)"/>
+		<type name="int16"   meta-type="primitive(int16)"/>
+		<type name="int32"   meta-type="primitive(int32)"/>
+		<type name="int64"   meta-type="primitive(int64)"/>
+		<type name="uint16"  meta-type="primitive(uint64)"/>
+		<type name="uint32"  meta-type="primitive(uint32)"/>
+		<type name="uint64"  meta-type="primitive(uint64)"/>
+		<type name="float32" meta-type="primitive(float32)"/>
+		<type name="float64" meta-type="primitive(float64)"/>
 
 	</package>
 
@@ -261,6 +262,66 @@
 			<field name="December" value="11" />
 		</type>
 
+	</package>
+<!--
+	<package name="sparql">
+
+		<type name="Production" meta-type="struct()">
+			<field name="Name" data-type="string" />
+			<field name="Kind" data-type="ProductionKind" />
+			<field name="Parser" data-type="Parser"/>
+		</type>
+
+		<type name="ProductionKind" meta-type="primitive(int)"/>
+
+		<type name="Sparql" meta-type="ebnf(*Production, Key:Kind)" />
+		<type name="Parser" meta-type="interface()">
+			<method name="Parse" >
+				<param name="s" data-type="string" />
+				<return name="unparsed" data-type="string" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+			<method name="String" >
+				<return name="s" data-type="string" />
+			</method>
+
+			<method name="LookAhead" >
+				<param name="s" data-type="rune" />
+				<return name="ok" data-type="bool" />
+			</method>
+		</type>
+	</package>
+-->
+	<package name="ebnf">
+
+		<type name="Ebnf" meta-type="ebnf(*parser, Key:Kind)" />
+
+		<type name="parser" meta-type="struct()" >
+			<field name="Name" data-type="string" />
+			<field name="Kind" data-type="ProductionKind" />
+			<field name="Parser" data-type="Parser" />
+		</type>
+
+		<type name="ProductionKind" meta-type="primitive(int)" />
+
+		<type name="Parser" meta-type="interface()">
+			<method name="Parse" >
+				<param name="input" data-type="string" />
+				<return name="unparsed" data-type="string" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+			<method name="String" >
+				<return name="s" data-type="string" />
+			</method>
+
+			<method name="LookAhead" >
+				<param name="char" data-type="rune" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+		</type>
 	</package>
 
 	<package name="graph">

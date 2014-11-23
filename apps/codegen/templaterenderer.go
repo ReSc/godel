@@ -40,7 +40,6 @@ func (r *TemplateRenderer) Imports() []*Import {
 }
 
 func (r *TemplateRenderer) RenderType(t *Type) {
-	fmt.Printline("rendering %v", t.Name)
 	err := r.Execute(r.Writer, t)
 	PanicIf(err)
 }

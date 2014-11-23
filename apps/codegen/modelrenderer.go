@@ -104,6 +104,7 @@ func (r *modelRenderer) RenderTypes(p *Package) {
 
 func (r *modelRenderer) RenderTypeTemplate(templateId string, t *Type) {
 	if fac, ok := typeRenderers[templateId]; ok {
+		fmt.Printline("rendering %s\t%s", t.Meta.Type, t.Name)
 		fac.NewRenderer(r.Writer).RenderType(t)
 	} else {
 		r.Writeln("// %v %v\n", t.Meta.Type, t.Name)

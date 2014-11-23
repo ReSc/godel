@@ -49,7 +49,7 @@ var metaTypeRegex = regexp.MustCompile(`^(?P<type>\w+)\(\s*(?P<args>[*]?\w+)?(?:
 func (t *Type) InitializeMetaType() {
 	typeAndArgs := metaTypeRegex.FindAllStringSubmatch(t.MetaType, 3)
 	if len(typeAndArgs) == 0 {
-		fmt.Panic("Invalid metatype for type %v", t.Name)
+		fmt.Panic("Invalid metatype '%s' for type %s  in package %s", t.MetaType, t.Name, t.Package.Name)
 	}
 	metaType := typeAndArgs[0][1]
 	typeArg := typeAndArgs[0][2]
@@ -57,7 +57,7 @@ func (t *Type) InitializeMetaType() {
 	switch metaType {
 	case "primitive":
 		t.Meta = &MetaType{
-			Name: t.Name,
+			Name: typeArg,
 		}
 	case "struct":
 		t.Meta = &MetaType{
@@ -101,6 +101,14 @@ func (t *Type) InitializeMetaType() {
 			Name:        typeArg,
 			KeyType:     "string",
 			KeyName:     "Name",
+			ElementType: typeArg,
+		}
+	case "ebnf":
+		keyType := t.Package.GetType(typeArg).GetField(keyName).DataType
+		t.Meta = &MetaType{
+			Name:        typeArg,
+			KeyType:     keyType,
+			KeyName:     keyName,
 			ElementType: typeArg,
 		}
 	default:

@@ -1,0 +1,2 @@
+{{if ne .Name .Meta.Name }}type {{.Name}} {{.Meta.Name}}
+{{end}}
