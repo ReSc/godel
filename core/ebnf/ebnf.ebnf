@@ -12,21 +12,22 @@
 // productions
 
 Grammar		   = Production { Production } .
-Production     = name "=" Alternation "." .
+Production     = Name equals Alternation "." .
 Alternation    = Sequence { "|" Sequence } .
 Sequence       = Term { Term } .
-Term           = name | Token | Group | Option | Repetition .
+Term           = Name | Token | Group | Option | Repetition .
 Group          = "(" Alternation ")" .
 Option         = "[" Alternation "]" .
 Repetition     = "{" Alternation "}" .
 Token		   = Range | token .
 Range		   = singleToken "…" singleToken.
-
+Name           = pname | tname .
 // terminals
 
-char   = "\x09" | "\x0A" | "\x0D" | "\x20" … "\uD7FF" | "\uE000" … "\uFFFD" | "\U00010000" … "\U0010FFFF" .
-singleToken  = `"` char `"` .
-token  = `"` char { char } `"` .
-name   = pname | tname .
+// char   = "\x09" | "\x0A" | "\x0D" | "\x20" … "\uD7FF" | "\uE000" … "\uFFFD" | "\U00010000" … "\U0010FFFF" .
+_tokenchar   =  "\x09" | "\x0A" | "\x0D" | "\x20"| "\x21" | `\"` | "\x23" … "\uD7FF" |"\uE000" … "\uFFFD" | "\U00010000" … "\U0010FFFF" .
+singleToken  = `"` _tokenchar `"` .
+token  = `"` _tokenchar { _tokenchar } `"` .
 pname  =  "A" … "Z" { "a" … "z" | "A" … "Z" |  "0" … "9" | "_" } .
 tname  =  "a" … "z" { "a" … "z" | "A" … "Z" |  "0" … "9" | "_" } .
+equals  =  "=" .

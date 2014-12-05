@@ -112,9 +112,9 @@ func (this AttrMap) Values() []*Attr {
 // Edge is a struct
 type Edge struct {
 	Id  int64
-	Obj *Node
-	Prd *Node
-	Sub *Node
+	Obj int64
+	Prd int64
+	Sub int64
 }
 
 // NewEdge creates a new instance of Edge

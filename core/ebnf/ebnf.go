@@ -6,6 +6,7 @@ type Ebnf struct {
 	myAlternation *Alternation
 	myGrammar     *Grammar
 	myGroup       *Group
+	myName        *Name
 	myOption      *Option
 	myProduction  *Production
 	myRange       *Range
@@ -13,8 +14,8 @@ type Ebnf struct {
 	mySequence    *Sequence
 	myTerm        *Term
 	myToken       *Token
-	mychar        *char
-	myname        *name
+	my_tokenchar  *_tokenchar
+	myequals      *equals
 	mypname       *pname
 	mysingleToken *singleToken
 	mytname       *tname
@@ -27,6 +28,7 @@ func (this *Ebnf) Syntax() string {
 	output += this.Alternation().Syntax() + "\n"
 	output += this.Grammar().Syntax() + "\n"
 	output += this.Group().Syntax() + "\n"
+	output += this.Name().Syntax() + "\n"
 	output += this.Option().Syntax() + "\n"
 	output += this.Production().Syntax() + "\n"
 	output += this.Range().Syntax() + "\n"
@@ -34,8 +36,8 @@ func (this *Ebnf) Syntax() string {
 	output += this.Sequence().Syntax() + "\n"
 	output += this.Term().Syntax() + "\n"
 	output += this.Token().Syntax() + "\n"
-	output += this.char().Syntax() + "\n"
-	output += this.name().Syntax() + "\n"
+	output += this._tokenchar().Syntax() + "\n"
+	output += this.equals().Syntax() + "\n"
 	output += this.pname().Syntax() + "\n"
 	output += this.singleToken().Syntax() + "\n"
 	output += this.tname().Syntax() + "\n"
@@ -48,6 +50,7 @@ const (
 	KindAlternation ProductionKind = iota
 	KindGrammar
 	KindGroup
+	KindName
 	KindOption
 	KindProduction
 	KindRange
@@ -55,8 +58,8 @@ const (
 	KindSequence
 	KindTerm
 	KindToken
-	Kindchar
-	Kindname
+	Kind_tokenchar
+	Kindequals
 	Kindpname
 	KindsingleToken
 	Kindtname
@@ -67,9 +70,6 @@ type Alternation struct {
 	parser
 }
 
-func (this *Alternation) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Alternation) String() string {
 	return this.Name
 }
@@ -82,8 +82,9 @@ func (this *Ebnf) Alternation() *Alternation {
 	}
 	this.myAlternation = &Alternation{
 		parser: parser{
-			Kind: KindAlternation,
-			Name: "Alternation",
+			Kind:       KindAlternation,
+			Name:       "Alternation",
+			IsTerminal: false,
 		},
 	}
 
@@ -100,9 +101,6 @@ type Grammar struct {
 	parser
 }
 
-func (this *Grammar) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Grammar) String() string {
 	return this.Name
 }
@@ -115,8 +113,9 @@ func (this *Ebnf) Grammar() *Grammar {
 	}
 	this.myGrammar = &Grammar{
 		parser: parser{
-			Kind: KindGrammar,
-			Name: "Grammar",
+			Kind:       KindGrammar,
+			Name:       "Grammar",
+			IsTerminal: false,
 		},
 	}
 
@@ -131,9 +130,6 @@ type Group struct {
 	parser
 }
 
-func (this *Group) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Group) String() string {
 	return this.Name
 }
@@ -146,8 +142,9 @@ func (this *Ebnf) Group() *Group {
 	}
 	this.myGroup = &Group{
 		parser: parser{
-			Kind: KindGroup,
-			Name: "Group",
+			Kind:       KindGroup,
+			Name:       "Group",
+			IsTerminal: false,
 		},
 	}
 
@@ -158,13 +155,38 @@ func (this *Ebnf) Group() *Group {
 	return this.myGroup
 }
 
+type Name struct {
+	parser
+}
+
+func (this *Name) String() string {
+	return this.Name
+}
+func (this *Name) Syntax() string {
+	return this.Name + " = " + this.Parser.String()
+}
+func (this *Ebnf) Name() *Name {
+	if this.myName != nil {
+		return this.myName
+	}
+	this.myName = &Name{
+		parser: parser{
+			Kind:       KindName,
+			Name:       "Name",
+			IsTerminal: false,
+		},
+	}
+
+	this.myName.Parser = this.alt(
+		this.pname(),
+		this.tname())
+	return this.myName
+}
+
 type Option struct {
 	parser
 }
 
-func (this *Option) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Option) String() string {
 	return this.Name
 }
@@ -177,8 +199,9 @@ func (this *Ebnf) Option() *Option {
 	}
 	this.myOption = &Option{
 		parser: parser{
-			Kind: KindOption,
-			Name: "Option",
+			Kind:       KindOption,
+			Name:       "Option",
+			IsTerminal: false,
 		},
 	}
 
@@ -193,9 +216,6 @@ type Production struct {
 	parser
 }
 
-func (this *Production) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Production) String() string {
 	return this.Name
 }
@@ -208,14 +228,15 @@ func (this *Ebnf) Production() *Production {
 	}
 	this.myProduction = &Production{
 		parser: parser{
-			Kind: KindProduction,
-			Name: "Production",
+			Kind:       KindProduction,
+			Name:       "Production",
+			IsTerminal: false,
 		},
 	}
 
 	this.myProduction.Parser = this.seq(
-		this.name(),
-		this.tok("="),
+		this.Name(),
+		this.equals(),
 		this.Alternation(),
 		this.tok("."))
 	return this.myProduction
@@ -225,9 +246,6 @@ type Range struct {
 	parser
 }
 
-func (this *Range) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Range) String() string {
 	return this.Name
 }
@@ -240,8 +258,9 @@ func (this *Ebnf) Range() *Range {
 	}
 	this.myRange = &Range{
 		parser: parser{
-			Kind: KindRange,
-			Name: "Range",
+			Kind:       KindRange,
+			Name:       "Range",
+			IsTerminal: false,
 		},
 	}
 
@@ -256,9 +275,6 @@ type Repetition struct {
 	parser
 }
 
-func (this *Repetition) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Repetition) String() string {
 	return this.Name
 }
@@ -271,8 +287,9 @@ func (this *Ebnf) Repetition() *Repetition {
 	}
 	this.myRepetition = &Repetition{
 		parser: parser{
-			Kind: KindRepetition,
-			Name: "Repetition",
+			Kind:       KindRepetition,
+			Name:       "Repetition",
+			IsTerminal: false,
 		},
 	}
 
@@ -287,9 +304,6 @@ type Sequence struct {
 	parser
 }
 
-func (this *Sequence) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Sequence) String() string {
 	return this.Name
 }
@@ -302,8 +316,9 @@ func (this *Ebnf) Sequence() *Sequence {
 	}
 	this.mySequence = &Sequence{
 		parser: parser{
-			Kind: KindSequence,
-			Name: "Sequence",
+			Kind:       KindSequence,
+			Name:       "Sequence",
+			IsTerminal: false,
 		},
 	}
 
@@ -318,9 +333,6 @@ type Term struct {
 	parser
 }
 
-func (this *Term) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Term) String() string {
 	return this.Name
 }
@@ -333,13 +345,14 @@ func (this *Ebnf) Term() *Term {
 	}
 	this.myTerm = &Term{
 		parser: parser{
-			Kind: KindTerm,
-			Name: "Term",
+			Kind:       KindTerm,
+			Name:       "Term",
+			IsTerminal: false,
 		},
 	}
 
 	this.myTerm.Parser = this.alt(
-		this.name(),
+		this.Name(),
 		this.Token(),
 		this.Group(),
 		this.Option(),
@@ -351,9 +364,6 @@ type Token struct {
 	parser
 }
 
-func (this *Token) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *Token) String() string {
 	return this.Name
 }
@@ -366,8 +376,9 @@ func (this *Ebnf) Token() *Token {
 	}
 	this.myToken = &Token{
 		parser: parser{
-			Kind: KindToken,
-			Name: "Token",
+			Kind:       KindToken,
+			Name:       "Token",
+			IsTerminal: false,
 		},
 	}
 
@@ -377,77 +388,71 @@ func (this *Ebnf) Token() *Token {
 	return this.myToken
 }
 
-type char struct {
+type _tokenchar struct {
 	parser
 }
 
-func (this *char) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
-func (this *char) String() string {
+func (this *_tokenchar) String() string {
 	return this.Name
 }
-func (this *char) Syntax() string {
+func (this *_tokenchar) Syntax() string {
 	return this.Name + " = " + this.Parser.String()
 }
-func (this *Ebnf) char() *char {
-	if this.mychar != nil {
-		return this.mychar
+func (this *Ebnf) _tokenchar() *_tokenchar {
+	if this.my_tokenchar != nil {
+		return this.my_tokenchar
 	}
-	this.mychar = &char{
+	this.my_tokenchar = &_tokenchar{
 		parser: parser{
-			Kind: Kindchar,
-			Name: "char",
+			Kind:       Kind_tokenchar,
+			Name:       "_tokenchar",
+			IsTerminal: false,
 		},
 	}
 
-	this.mychar.Parser = this.alt(
+	this.my_tokenchar.Parser = this.alt(
 		this.tok("\t"),
 		this.tok("\n"),
 		this.tok("\r"),
-		this.chr(" ", "\ud7ff"),
+		this.tok(" "),
+		this.tok("!"),
+		this.tok("\\\""),
+		this.chr("#", "\ud7ff"),
 		this.chr("\ue000", "\ufffd"),
 		this.chr("\U00010000", "\U0010ffff"))
-	return this.mychar
+	return this.my_tokenchar
 }
 
-type name struct {
+type equals struct {
 	parser
 }
 
-func (this *name) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
-func (this *name) String() string {
+func (this *equals) String() string {
 	return this.Name
 }
-func (this *name) Syntax() string {
+func (this *equals) Syntax() string {
 	return this.Name + " = " + this.Parser.String()
 }
-func (this *Ebnf) name() *name {
-	if this.myname != nil {
-		return this.myname
+func (this *Ebnf) equals() *equals {
+	if this.myequals != nil {
+		return this.myequals
 	}
-	this.myname = &name{
+	this.myequals = &equals{
 		parser: parser{
-			Kind: Kindname,
-			Name: "name",
+			Kind:       Kindequals,
+			Name:       "equals",
+			IsTerminal: true,
 		},
 	}
 
-	this.myname.Parser = this.alt(
-		this.pname(),
-		this.tname())
-	return this.myname
+	this.myequals.Parser = this.tok("=")
+	return this.myequals
 }
 
 type pname struct {
 	parser
 }
 
-func (this *pname) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *pname) String() string {
 	return this.Name
 }
@@ -460,8 +465,9 @@ func (this *Ebnf) pname() *pname {
 	}
 	this.mypname = &pname{
 		parser: parser{
-			Kind: Kindpname,
-			Name: "pname",
+			Kind:       Kindpname,
+			Name:       "pname",
+			IsTerminal: true,
 		},
 	}
 
@@ -480,9 +486,6 @@ type singleToken struct {
 	parser
 }
 
-func (this *singleToken) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *singleToken) String() string {
 	return this.Name
 }
@@ -495,14 +498,15 @@ func (this *Ebnf) singleToken() *singleToken {
 	}
 	this.mysingleToken = &singleToken{
 		parser: parser{
-			Kind: KindsingleToken,
-			Name: "singleToken",
+			Kind:       KindsingleToken,
+			Name:       "singleToken",
+			IsTerminal: true,
 		},
 	}
 
 	this.mysingleToken.Parser = this.seq(
 		this.tok("\""),
-		this.char(),
+		this._tokenchar(),
 		this.tok("\""))
 	return this.mysingleToken
 }
@@ -511,9 +515,6 @@ type tname struct {
 	parser
 }
 
-func (this *tname) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *tname) String() string {
 	return this.Name
 }
@@ -526,8 +527,9 @@ func (this *Ebnf) tname() *tname {
 	}
 	this.mytname = &tname{
 		parser: parser{
-			Kind: Kindtname,
-			Name: "tname",
+			Kind:       Kindtname,
+			Name:       "tname",
+			IsTerminal: true,
 		},
 	}
 
@@ -546,9 +548,6 @@ type token struct {
 	parser
 }
 
-func (this *token) Parse(input string) (string, bool) {
-	return this.Parser.Parse(input)
-}
 func (this *token) String() string {
 	return this.Name
 }
@@ -561,32 +560,44 @@ func (this *Ebnf) token() *token {
 	}
 	this.mytoken = &token{
 		parser: parser{
-			Kind: Kindtoken,
-			Name: "token",
+			Kind:       Kindtoken,
+			Name:       "token",
+			IsTerminal: true,
 		},
 	}
 
 	this.mytoken.Parser = this.seq(
 		this.tok("\""),
-		this.char(),
+		this._tokenchar(),
 		this.rpt(
-			this.char()),
+			this._tokenchar()),
 		this.tok("\""))
 	return this.mytoken
 }
 
 type Parser interface {
-	LookAhead(char rune) (ok bool)
-	Parse(input string) (unparsed string, ok bool)
+	LookAhead(input string) (ok bool)
+	Parse(scope Scope, input string) (unparsed string, ok bool)
 	String() (s string)
 }
 type ProductionKind int
 
+type Scope interface {
+	Len() (l int)
+	Mark() (mark int)
+	Peek() (kind ProductionKind, name string, value string)
+	Pop() (kind ProductionKind, name string, value string)
+	PopUntil(mark int) (kind []ProductionKind, name []string, value []string)
+	Push(kind ProductionKind, name string, value string)
+	PushAll(kind []ProductionKind, name []string, value []string) (self Scope)
+}
+
 // parser is a struct
 type parser struct {
-	Kind   ProductionKind
-	Name   string
-	Parser Parser
+	IsTerminal bool
+	Kind       ProductionKind
+	Name       string
+	Parser     Parser
 }
 
 // Newparser creates a new instance of parser

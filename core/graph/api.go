@@ -52,9 +52,9 @@ func (g *Graph) AddEdge(sub, prd, obj *Node) *Edge {
 	}
 	e := NewEdge()
 	e.Id = g.NextEdgeId()
-	e.Sub = sub
-	e.Prd = prd
-	e.Obj = obj
+	e.Sub = sub.Id
+	e.Prd = prd.Id
+	e.Obj = obj.Id
 	g.AddNode(sub)
 	g.AddNode(prd)
 	g.AddNode(obj)
@@ -67,9 +67,15 @@ func (g *Graph) AddEdge(sub, prd, obj *Node) *Edge {
 
 func (g *Graph) DelEdge(e *Edge) {
 	g.Edges.Del(e)
-	e.Sub.OutEdges.Del(e)
-	e.Prd.InEdges.Del(e)
-	e.Obj.InEdges.Del(e)
+	if s, ok := g.Nodes[e.Sub]; ok {
+		s.OutEdges.Del(e)
+	}
+	if p, ok := g.Nodes[e.Prd]; ok {
+		p.InEdges.Del(e)
+	}
+	if o, ok := g.Nodes[e.Obj]; ok {
+		o.InEdges.Del(e)
+	}
 }
 
 func (g *Graph) AddNode(n *Node) bool {

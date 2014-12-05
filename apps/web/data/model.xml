@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- model file -->
+<model name="core" path="github.com/ReSc/godel" >
+
+	<package name="global">
+
+        <!-- the global package contains the primitive data types -->
+
+		<type name="string" meta-type="primitive(string)"/>
+		<type name="rune" meta-type="primitive(int32)"/>
+
+		<type name="bool"    meta-type="primitive(bool)"/>
+		<type name="byte"    meta-type="primitive(byte)"/>
+		<type name="int16"   meta-type="primitive(int16)"/>
+		<type name="int32"   meta-type="primitive(int32)"/>
+		<type name="int64"   meta-type="primitive(int64)"/>
+		<type name="uint16"  meta-type="primitive(uint64)"/>
+		<type name="uint32"  meta-type="primitive(uint32)"/>
+		<type name="uint64"  meta-type="primitive(uint64)"/>
+		<type name="float32" meta-type="primitive(float32)"/>
+		<type name="float64" meta-type="primitive(float64)"/>
+
+	</package>
+
+	<package name="codegen">
+
+		<import alias="reflect" path="../reflect"/>
+
+		<import alias="graph" path="../graph"/>
+
+		<type name="ModelGraphBuilder" meta-type="struct()" >
+
+			<field name="Graph" data-type="*graph.Graph" value="graph.NewGraph()" />
+
+			<method name="VisitModel"  ><param name="m" data-type="*reflect.Model"   /></method>
+			<method name="VisitPackage"><param name="p" data-type="*reflect.Package" /></method>
+			<method name="VisitType"   ><param name="t" data-type="*reflect.Type"    /></method>
+			<method name="VisitField"  ><param name="f" data-type="*reflect.Field"   /></method>
+			<method name="VisitMethod" ><param name="m" data-type="*reflect.Method"  /></method>
+
+		</type>
+
+	</package>
+
+	<package name="mirror">
+
+		<import alias="reflect" path="../reflect"/>
+
+		<type name="Page" meta-type="struct()" ></type>
+		<type name="Layout" meta-type="struct()" ></type>
+		<type name="DataSource" meta-type="struct()" >
+			<field name="Schema" data-type="*Schema" value="NewSchema()" />
+			<field name="DataMember" data-type="string" />
+			<field name="DataValue" data-type="string" />
+			<field name="Current" data-type="Any"/>
+			<field name="CurrentIndex" data-type="int"/>
+		</type>
+		<type name="Any" meta-type="interface()" ></type>
+		<type name="Schema" meta-type="struct()" >
+			<field name="Type" data-type="*reflect.Type" />
+		</type>
+		<type name="Table" meta-type="struct()" ></type>
+		<type name="Stack" meta-type="struct()" ></type>
+		<type name="DockContainer" meta-type="struct()" ></type>
+		<type name="DockPanel" meta-type="struct()" ></type>
+		<type name="Label" meta-type="struct()" ></type>
+		<type name="Input" meta-type="struct()" ></type>
+		<type name="TabContainer" meta-type="struct()" ></type>
+		<type name="TabPanel" meta-type="struct()" ></type>
+
+	</package>
+
+	<package name="reflect2">
+
+		<import path="encoding/xml"/>
+		<import path="sort"/>
+
+		<type name="Model" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="Path" data-type="string" >
+				<attr name="xml" value="path,attr"/>
+			</field>
+			<field name="Packages" data-type="PackageMap" >
+				<attr name="xml" value="package"/>
+			</field>
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="Accepter" meta-type="interface()" >
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="Visitor" meta-type="interface()" >
+			<method name="VisitModel"  ><param name="m" data-type="*Model"   /></method>
+			<method name="VisitPackage"><param name="p" data-type="*Package" /></method>
+			<method name="VisitType"   ><param name="t" data-type="*Type"    /></method>
+			<method name="VisitField"  ><param name="f" data-type="*Field"   /></method>
+			<method name="VisitMethod" ><param name="m" data-type="*Method"  /></method>
+		</type>
+
+		<type name="PackageMap" meta-type="map(*Package, Key:Name)" />
+
+		<type name="Package" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="Model" data-type="*Model" >
+				<attr name="xml" value="-"/>
+				<attr name="json" value="-"/>
+			</field>
+			<field name="Imports" data-type="ImportMap" >
+				<attr name="xml" value="import"/>
+			</field>
+			<field name="Types" data-type="TypeMap" >
+				<attr name="xml" value="type"/>
+			</field>
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="ImportMap" meta-type="map(*Import, Key:Path)" />
+
+		<type name="Import" meta-type="struct()">
+			<field name="Path" data-type="string" >
+				<attr name="xml" value="path,attr"/>
+			</field>
+			<field name="Alias" data-type="string" >
+				<attr name="xml" value="alias,attr"/>
+			</field>
+			<field name="Package" data-type="*Package" >
+				<attr name="xml" value="-"/>
+				<attr name="json" value="-"/>
+			</field>
+		</type>
+
+		<type name="TypeMap" meta-type="map(*Type, Key:Name)" />
+
+		<type name="Type" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="MetaType" data-type="string" >
+				<attr name="xml" value="meta-type,attr"/>
+			</field>
+			<field name="Fields" data-type="FieldMap" >
+				<attr name="xml" value="field"/>
+			</field>
+			<field name="Methods" data-type="MethodMap" >
+				<attr name="xml" value="method"/>
+			</field>
+			<field name="Package" data-type="*Package" >
+				<attr name="xml" value="-"/>
+				<attr name="json" value="-"/>
+			</field>
+			<field name="Meta" data-type="*MetaType" >
+				<attr name="xml" value="-"/>
+				<attr name="json" value="-"/>
+			</field>
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="MetaType" meta-type="struct()">
+			<field name="IsContainer" data-type="bool" />
+			<field name="Name" data-type="string" />
+			<field name="Type" data-type="string" />
+			<field name="KeyName" data-type="string" />
+			<field name="KeyType" data-type="string" />
+			<field name="ElementName" data-type="string" />
+			<field name="ElementType" data-type="string" />
+			<field name="ElementTypeName" data-type="string" />
+		</type>
+
+		<type name="MethodMap" meta-type="map(*Method, Key:Name)" />
+
+		<type name="Method" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="Params" data-type="*ParamMap" >
+				<attr name="xml" value="param"/>
+			</field>
+			<field name="Returns" data-type="*ParamMap" >
+				<attr name="xml" value="return"/>
+			</field>
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="ParamMap" meta-type="listmap(*Param, Key:Name)" />
+
+		<type name="Param" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="DataType" data-type="string" >
+				<attr name="xml" value="data-type,attr"/>
+			</field>
+		</type>
+
+		<type name="FieldMap" meta-type="map(*Field, Key:Name)" />
+
+		<type name="Field" meta-type="struct()">
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="DataType" data-type="string" >
+				<attr name="xml" value="data-type,attr"/>
+			</field>
+			<field name="Value" data-type="string" >
+				<attr name="xml" value="value,attr"/>
+			</field>
+			<field name="Attrs" data-type="AttrMap" >
+				<attr name="xml" value="attr"/>
+			</field>
+			<field name="Type" data-type="*Type" >
+				<attr name="xml" value="-"/>
+				<attr name="json" value="-"/>
+			</field>
+			<method name="Accept" ><param name="v" data-type="Visitor" /></method>
+		</type>
+
+		<type name="AttrMap" meta-type="map(*Attr, Key:Name)"/>
+
+		<type name="Attr" meta-type="struct()">
+			<field name="Name" data-type="string">
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="Value" data-type="string" >
+				<attr name="xml" value="value,attr"/>
+			</field>
+		</type>
+
+	</package>
+
+	<package name="cron">
+
+		<import path="strings"/>
+
+		<type name="WeekDays" meta-type="enum(int)">
+			<field name="Sunday" value="0" />
+			<field name="Monday" value="1" />
+			<field name="Tuesday" value="2" />
+			<field name="Wednesday" value="3" />
+			<field name="Thursday" value="4" />
+			<field name="Friday" value="5" />
+			<field name="Saturday" value="6" />
+		</type>
+
+		<type name="Months" meta-type="enum(int)">
+			<field name="Januari" value="0" />
+			<field name="February" value="1" />
+			<field name="March" value="2" />
+			<field name="April" value="3" />
+			<field name="May" value="4" />
+			<field name="June" value="5" />
+			<field name="July" value="6" />
+			<field name="August" value="7" />
+			<field name="September" value="8" />
+			<field name="October" value="9" />
+			<field name="November" value="10" />
+			<field name="December" value="11" />
+		</type>
+
+	</package>
+<!--
+	<package name="sparql">
+
+		<type name="Production" meta-type="struct()">
+			<field name="Name" data-type="string" />
+			<field name="Kind" data-type="ProductionKind" />
+			<field name="Parser" data-type="Parser"/>
+		</type>
+
+		<type name="ProductionKind" meta-type="primitive(int)"/>
+
+		<type name="Sparql" meta-type="ebnf(*Production, Key:Kind)" />
+		<type name="Parser" meta-type="interface()">
+			<method name="Parse" >
+				<param name="s" data-type="string" />
+				<return name="unparsed" data-type="string" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+			<method name="String" >
+				<return name="s" data-type="string" />
+			</method>
+
+			<method name="LookAhead" >
+				<param name="s" data-type="rune" />
+				<return name="ok" data-type="bool" />
+			</method>
+		</type>
+	</package>
+-->
+	<package name="ebnf">
+
+		<type name="Ebnf" meta-type="ebnf(*parser, Key:Kind)" />
+
+		<type name="parser" meta-type="struct()" >
+			<field name="Name" data-type="string" />
+			<field name="IsTerminal" data-type="bool" />
+			<field name="Kind" data-type="ProductionKind" />
+			<field name="Parser" data-type="Parser" />
+		</type>
+
+		<type name="ProductionKind" meta-type="primitive(int)" />
+
+		<type name="Scope" meta-type="interface()">
+			<method name="Push">
+				<param name="kind" data-type="ProductionKind"/>
+				<param name="name" data-type="string"/>
+				<param name="value" data-type="string"/>
+			</method>
+			<method name="PushAll">
+				<param name="kind" data-type="[]ProductionKind"/>
+				<param name="name" data-type="[]string"/>
+				<param name="value" data-type="[]string"/>
+				<return name="self" data-type="Scope"/>
+			</method>
+			<method name="Len">
+				<return name="l" data-type="int"/>
+			</method>
+			<method name="Peek">
+				<return name="kind" data-type="ProductionKind"/>
+				<return name="name" data-type="string"/>
+				<return name="value" data-type="string"/>
+			</method>
+			<method name="Pop">
+				<return name="kind" data-type="ProductionKind"/>
+				<return name="name" data-type="string"/>
+				<return name="value" data-type="string"/>
+			</method>
+			<method name="PopUntil">
+				<param name="mark" data-type="int"/>
+				<return name="kind" data-type="[]ProductionKind"/>
+				<return name="name" data-type="[]string"/>
+				<return name="value" data-type="[]string"/>
+			</method>
+			<method name="Mark">
+				<return name="mark" data-type="int"/>
+			</method>
+		</type>
+
+		<type name="Parser" meta-type="interface()">
+			<method name="Parse" >
+				<param name="scope" data-type="Scope" />
+				<param name="input" data-type="string" />
+				<return name="unparsed" data-type="string" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+			<method name="String" >
+				<return name="s" data-type="string" />
+			</method>
+
+			<method name="LookAhead" >
+				<param name="input" data-type="string" />
+				<return name="ok" data-type="bool" />
+			</method>
+
+		</type>
+	</package>
+
+	<package name="graph">
+
+		<import path="encoding/xml"/>
+		<import path="sort"/>
+
+		<type name="NodeMap" meta-type="map(*Node, Key:Id)" />
+
+		<type name="Graph" meta-type="struct()">
+			<field name="Id" data-type="int64" />
+			<field name="nextNodeId" data-type="int64" />
+			<field name="nextEdgeId" data-type="int64" />
+			<field name="Name" data-type="string" />
+			<field name="Root" data-type="*Node" />
+			<field name="Nodes" data-type="NodeMap" />
+			<field name="Edges" data-type="EdgeMap" />
+		</type>
+
+		<type name="Node" meta-type="struct()">
+			<field name="Id" data-type="int64" />
+			<field name="Tags" data-type="TagSet" />
+			<field name="Attrs" data-type="AttrMap" />
+			<field name="InEdges" data-type="EdgeList" />
+			<field name="OutEdges" data-type="EdgeList" />
+		</type>
+
+		<type name="EdgeList" meta-type="list(*Edge)" />
+		<type name="EdgeMap" meta-type="map(*Edge, Key:Id)" />
+
+		<type name="Edge" meta-type="struct()" >
+			<field name="Id" data-type="int64" />
+			<field name="Sub" data-type="*Node" />
+			<field name="Prd" data-type="*Node" />
+			<field name="Obj" data-type="*Node" />
+			<!--
+			<field name="Txn" data-type="*Node" />
+			-->
+		</type>
+
+		<type name="TagSet" meta-type="set(string)" />
+
+		<type name="AttrMap" meta-type="map(*Attr, Key:Name)" />
+
+		<type name="Attr" meta-type="struct()" >
+			<field name="Name" data-type="string" />
+			<field name="Value" data-type="string" />
+		</type>
+
+	</package>
+
+</model>
