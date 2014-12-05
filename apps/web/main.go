@@ -1,57 +1,57 @@
 package main
 
 import (
-	"encoding/xml"
-	"github.com/ReSc/godel/core/rest"
+	"github.com/ReSc/godel/core/graph"
+	"github.com/ReSc/godel/core/mvc"
+	"github.com/ReSc/godel/core/reflect"
 	"github.com/gorilla/mux"
 	"net/http"
-	"os"
 )
 
 func main() {
-	xml.NewEncoder(os.Stdout).Encode(bootstrapNodes())
 	http.ListenAndServe(":3000", router())
-}
-
-func authenticate() {
-	ratelimit()
-	// get credentials
-	// if creds ok {
-	//   set credential context
-	// } else {
-	//	 deny request and redirect to login
-	// }
-}
-
-func authorize() {
-	ratelimit()
-	// get credentials from context
-	// if no credentials deny request
-	// check url acl,accept or deny request
-}
-
-func ratelimit() {
-
-}
-
-func pipeline() http.Handler {
-	return nil
 }
 
 func router() *mux.Router {
 	r := mux.NewRouter()
-	serveFiles(r)
-	serveApi(r)
+	serveFilesFrom(r, "./public", "/app/")
+	serveControllersFrom(r, "/api/v1")
 	return r
 }
 
-func serveFiles(r *mux.Router) {
-	dir := http.Dir("./static")
-	fileServer := http.FileServer(dir)
-	r.PathPrefix("/app/").Handler(http.StripPrefix("/app/", fileServer))
+func serveFilesFrom(r *mux.Router, fspath, prefix string) {
+	dir := http.Dir(fspath)
+	fileServer := http.StripPrefix(prefix, http.FileServer(dir))
+	handler := mvc.NewHandlerBuilder().
+		Build(&mvc.Route{
+		Name:     "StaticFiles",
+		Method:   "GET",
+		Pipeline: []string{"log"},
+		Handler:  fileServer,
+	})
+	r.
+		Methods(handler.Method).
+		PathPrefix(prefix).
+		Handler(handler)
 }
 
-func serveApi(r *mux.Router) {
-	r = r.PathPrefix("/api/v1/").Subrouter()
-	rest.Register(r, newNodeResource(), "id:[0-9]+")
+func serveControllersFrom(r *mux.Router, prefix string) {
+	d := mvc.NewDispatcher(mvc.DispatcherConfig{
+		PathPrefix: prefix,
+		Router:     r,
+	})
+
+	m, err := reflect.LoadModelFile("./data/model.xml")
+	if err != nil {
+		panic(err)
+	}
+
+	d.Register(func() mvc.Controller {
+		return &ModelController{model: m}
+	})
+
+	g := graph.NewGraph().Init()
+	d.Register(func() mvc.Controller {
+		return &GraphController{graph: g}
+	})
 }

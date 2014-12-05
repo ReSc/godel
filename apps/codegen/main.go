@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/xml"
 	"github.com/ReSc/fmt"
 
 	. "github.com/ReSc/godel/core/reflect"
@@ -16,7 +15,7 @@ func main() {
 }
 
 func run() {
-	model, err := loadModel("./model.xml")
+	model, err := LoadModelFile("./model.xml")
 	PanicIf(err)
 
 	for _, name := range model.Packages.SortedKeys() {
@@ -53,23 +52,6 @@ func reformat(file string) {
 	if err != nil {
 		fmt.Printline(err.Error() + ": " + stderr.String())
 	}
-}
-
-func loadModel(path string) (*Model, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	decoder := xml.NewDecoder(file)
-	model := NewModel()
-	err = decoder.Decode(model)
-	if err != nil {
-		return nil, err
-	}
-	model.Initialize()
-	return model, nil
 }
 
 func PanicIf(err error) {

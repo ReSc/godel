@@ -299,14 +299,52 @@
 
 		<type name="parser" meta-type="struct()" >
 			<field name="Name" data-type="string" />
+			<field name="IsTerminal" data-type="bool" />
 			<field name="Kind" data-type="ProductionKind" />
 			<field name="Parser" data-type="Parser" />
 		</type>
 
 		<type name="ProductionKind" meta-type="primitive(int)" />
 
+		<type name="Scope" meta-type="interface()">
+			<method name="Push">
+				<param name="kind" data-type="ProductionKind"/>
+				<param name="name" data-type="string"/>
+				<param name="value" data-type="string"/>
+			</method>
+			<method name="PushAll">
+				<param name="kind" data-type="[]ProductionKind"/>
+				<param name="name" data-type="[]string"/>
+				<param name="value" data-type="[]string"/>
+				<return name="self" data-type="Scope"/>
+			</method>
+			<method name="Len">
+				<return name="l" data-type="int"/>
+			</method>
+			<method name="Peek">
+				<return name="kind" data-type="ProductionKind"/>
+				<return name="name" data-type="string"/>
+				<return name="value" data-type="string"/>
+			</method>
+			<method name="Pop">
+				<return name="kind" data-type="ProductionKind"/>
+				<return name="name" data-type="string"/>
+				<return name="value" data-type="string"/>
+			</method>
+			<method name="PopUntil">
+				<param name="mark" data-type="int"/>
+				<return name="kind" data-type="[]ProductionKind"/>
+				<return name="name" data-type="[]string"/>
+				<return name="value" data-type="[]string"/>
+			</method>
+			<method name="Mark">
+				<return name="mark" data-type="int"/>
+			</method>
+		</type>
+
 		<type name="Parser" meta-type="interface()">
 			<method name="Parse" >
+				<param name="scope" data-type="Scope" />
 				<param name="input" data-type="string" />
 				<return name="unparsed" data-type="string" />
 				<return name="ok" data-type="bool" />
@@ -317,7 +355,7 @@
 			</method>
 
 			<method name="LookAhead" >
-				<param name="char" data-type="rune" />
+				<param name="input" data-type="string" />
 				<return name="ok" data-type="bool" />
 			</method>
 
@@ -354,9 +392,9 @@
 
 		<type name="Edge" meta-type="struct()" >
 			<field name="Id" data-type="int64" />
-			<field name="Sub" data-type="*Node" />
-			<field name="Prd" data-type="*Node" />
-			<field name="Obj" data-type="*Node" />
+			<field name="Sub" data-type="int64" />
+			<field name="Prd" data-type="int64" />
+			<field name="Obj" data-type="int64" />
 			<!--
 			<field name="Txn" data-type="*Node" />
 			-->

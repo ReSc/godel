@@ -24,7 +24,7 @@ func (p ByProduction) Less(i, j int) bool {
 	return p[i] < p[j]
 }
 
-var terminalPattern = regexp.MustCompile("^[A-Z0-9_]+$")
+var terminalPattern = regexp.MustCompile("^[a-z]")
 
 func isTerminal(s string) bool {
 	return terminalPattern.MatchString(s)
@@ -143,9 +143,9 @@ func (r *EbnfRenderer) render(e ebnf.Expression) {
 		fmt.Printline("Rendering production\t%s", prod.Name.String)
 		r.Writefmt("type %s struct {\n%s}\n", prod.Name.String, r.parserType.Meta.ElementTypeName)
 
-		r.Writefmt("func (this *" + prod.Name.String + ") Parse(input string) (string,bool) {\n")
-		r.Writefmt(" return this.Parser.Parse(input)\n")
-		r.Writefmt("}\n")
+		//		r.Writefmt("func (this *" + prod.Name.String + ") Parse(scope Scope, input string) (string,bool) {\n")
+		//		r.Writefmt(" return this.Parser.Parse(scope, input)\n")
+		//		r.Writefmt("}\n")
 
 		r.Writefmt("func (this *" + prod.Name.String + ") String() string {\n")
 		r.Writefmt(" return this.Name\n")
@@ -164,6 +164,7 @@ func (r *EbnfRenderer) render(e ebnf.Expression) {
 		r.Writefmt("%[1]s: %[1]s{\n", r.parserType.Meta.ElementTypeName)
 		r.Writefmt("%s: %s%s,\n", r.parserType.Meta.KeyName, r.parserType.Meta.KeyName, prod.Name.String)
 		r.Writefmt("Name: \"%s\",\n", prod.Name.String)
+		r.Writefmt("IsTerminal: %v,\n", terminalPattern.MatchString(prod.Name.String))
 		r.Writeln("},\n}\n")
 
 		r.Writefmt("this.my%s.Parser = ", prod.Name.String)
