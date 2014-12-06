@@ -2,9 +2,11 @@ package mvc
 
 import (
 	"github.com/gorilla/mux"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
@@ -14,6 +16,7 @@ import (
 
 type DispatcherConfig struct {
 	PathPrefix            string
+	ViewRootPath          string
 	Router                *mux.Router
 	RecognizedHttpMethods []string
 	Log                   *log.Logger
@@ -25,6 +28,7 @@ type Dispatcher struct {
 	config      DispatcherConfig
 	router      *mux.Router
 	log         *log.Logger
+	templates   *template.Template
 }
 
 func NewDispatcher(config DispatcherConfig) *Dispatcher {
@@ -35,6 +39,7 @@ func NewDispatcher(config DispatcherConfig) *Dispatcher {
 		router:      config.Router,
 	}
 
+	d.initViewEngine()
 	d.initLogger()
 	d.initSupportedHttpMethods()
 	d.initRouter()
@@ -42,6 +47,25 @@ func NewDispatcher(config DispatcherConfig) *Dispatcher {
 	return d
 }
 
+func (d *Dispatcher) initViewEngine() {
+	if d.config.ViewRootPath == "" {
+		d.config.ViewRootPath = "./views"
+	}
+	t := template.New("views")
+	files := make([]string, 0)
+	filepath.Walk(d.config.ViewRootPath, func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() && strings.HasSuffix(info.Name(), ".ht") {
+			files = append(files, path)
+		}
+		return nil
+	})
+
+	templates, err := t.ParseFiles(files...)
+	if err != nil {
+		panic(err)
+	}
+	d.templates = templates
+}
 func (d *Dispatcher) initLogger() {
 	if d.config.Log == nil {
 		d.config.Log = log.New(os.Stdout, "mvc - ", log.LstdFlags|log.Lmicroseconds)

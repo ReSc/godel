@@ -1,0 +1,7 @@
+<form action="." method="post">
+<fieldset>
+<legend>Node {{.Id}}</legend>
+<input name="Name"    type="text"   value="{{.Name}}" />
+<input name="btnSave" type="submit" value="Save" /> 
+</fieldset>
+</form>

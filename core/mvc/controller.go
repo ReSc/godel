@@ -3,6 +3,7 @@ package mvc
 import (
 	"encoding/json"
 	"encoding/xml"
+	"html/template"
 	"net/http"
 	"strconv"
 	"strings"
@@ -26,6 +27,10 @@ type ControllerFactory func() Controller
 // see ControllerFactory documentation
 type Controller interface {
 	init(cc *controllerConfig, vars map[string]string, w http.ResponseWriter, r *http.Request)
+}
+
+type ViewEngine interface {
+	Render(name string, model interface{}) error
 }
 
 // ControllerBase is the base implementation for mvc controllers
@@ -141,7 +146,34 @@ func (h *redirectHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, h.url, http.StatusSeeOther)
 }
 
+// View ==============================
+
+func (c *ControllerBase) View(model interface{}) http.Handler {
+	return &viewHandler{
+		view:  nil, // TODO FIXME
+		model: model,
+	}
+}
+
+type viewHandler struct {
+	model interface{}
+	view  *template.Template
+}
+
+func (h *viewHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	err := h.view.Execute(w, h.model)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 // Json ==============================
+
+// JsonBody decodes the request body into v and returns an error if decoding failed
+func (c *ControllerBase) JsonBody(v interface{}) error {
+	return json.NewDecoder(c.Request.Body).Decode(v)
+}
 
 // Json returns a json serialized result of the supplied value.
 // Also sets the correct Content-Type header
@@ -159,6 +191,11 @@ func (h *jsonHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 // Xml ==============================
+
+// XmBody decodes the request body into v and returns an error if this fails
+func (c *ControllerBase) XmlBody(v interface{}) error {
+	return xml.NewDecoder(c.Request.Body).Decode(v)
+}
 
 // Xml returns a xml serialized result of the supplied value.
 // Also sets the correct Content-Type header
