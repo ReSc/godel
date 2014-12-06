@@ -149,8 +149,14 @@ func (h *redirectHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // View ==============================
 
 func (c *ControllerBase) View(model interface{}) http.Handler {
+	name := c.Action() + ".ht"
+	path := c.config.viewBasePath + "/" + name
+	t, err := template.ParseFiles(path)
+	if err != nil {
+		return c.InternalServerError(err.Error())
+	}
 	return &viewHandler{
-		view:  nil, // TODO FIXME
+		view:  t.Lookup(name),
 		model: model,
 	}
 }
@@ -217,6 +223,20 @@ func (h *xmlHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // NotFound returns a 404 not found result
 func (c *ControllerBase) NotFound() http.Handler {
 	return c.Status(http.StatusNotFound, "")
+}
+
+// BadRequest ==============================
+
+// BadRequest bad request
+func (c *ControllerBase) BadRequest() http.Handler {
+	return c.Status(http.StatusBadRequest, "")
+}
+
+// Internal Server Error ==============================
+
+// InternalServerError returns a 500 internal server error with a custom error message
+func (c *ControllerBase) InternalServerError(err string) http.Handler {
+	return c.Status(http.StatusInternalServerError, err)
 }
 
 // Status ==============================

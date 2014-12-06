@@ -82,7 +82,8 @@ func (m *actionMap) Add(c interface{}, httpMethod string, name string, method re
 
 func (m *actionMap) Get(httpMethod string, name string) (*action, bool) {
 	for i := range m.actions {
-		if m.actions[i].name == name {
+		if m.actions[i].httpMethod == httpMethod &&
+			m.actions[i].name == name {
 			return m.actions[i], true
 		}
 	}

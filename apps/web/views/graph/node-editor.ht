@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hi!</title>
+	</head>
+	<body>
+		<form action="./{{.Id}}" method="post">
+			<fieldset>
+				<legend>Node {{.Id}}</legend>
+				<input name="name"    type="text"   value="{{ .Attrs.name.Value }}" />
+				<input name="btnSave" type="submit" value="Save" /> 
+			</fieldset>
+		</form>
+	</body>
+</html>

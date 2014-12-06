@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
@@ -39,33 +38,15 @@ func NewDispatcher(config DispatcherConfig) *Dispatcher {
 		router:      config.Router,
 	}
 
-	d.initViewEngine()
 	d.initLogger()
+	// and init the rest
+	d.initViewEngine()
 	d.initSupportedHttpMethods()
 	d.initRouter()
 
 	return d
 }
 
-func (d *Dispatcher) initViewEngine() {
-	if d.config.ViewRootPath == "" {
-		d.config.ViewRootPath = "./views"
-	}
-	t := template.New("views")
-	files := make([]string, 0)
-	filepath.Walk(d.config.ViewRootPath, func(path string, info os.FileInfo, err error) error {
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".ht") {
-			files = append(files, path)
-		}
-		return nil
-	})
-
-	templates, err := t.ParseFiles(files...)
-	if err != nil {
-		panic(err)
-	}
-	d.templates = templates
-}
 func (d *Dispatcher) initLogger() {
 	if d.config.Log == nil {
 		d.config.Log = log.New(os.Stdout, "mvc - ", log.LstdFlags|log.Lmicroseconds)
@@ -73,6 +54,9 @@ func (d *Dispatcher) initLogger() {
 	d.log = d.config.Log
 }
 
+func (d *Dispatcher) initViewEngine() {
+	d.config.ViewRootPath = "./views"
+}
 func (d *Dispatcher) initSupportedHttpMethods() {
 	if len(d.config.RecognizedHttpMethods) == 0 {
 		d.config.RecognizedHttpMethods = []string{
@@ -128,14 +112,18 @@ func (d *Dispatcher) Register(factory ControllerFactory) {
 }
 
 type controllerConfig struct {
-	name    string
-	actions *actionMap
-	factory ControllerFactory
+	name         string
+	actions      *actionMap
+	factory      ControllerFactory
+	viewBasePath string
 }
 
 func (d *Dispatcher) register(cc *controllerConfig) {
 	c := cc.factory()
-	cc.name = getControllerName(c)
+	name := getControllerName(c)
+	cc.name = name
+	cc.viewBasePath = d.config.ViewRootPath + "/" + name
+
 	methods := getControllerMethods(c)
 	for _, m := range methods {
 		for _, httpMethod := range d.config.RecognizedHttpMethods {
@@ -198,7 +186,8 @@ func (d *Dispatcher) dispatch(w http.ResponseWriter, r *http.Request) {
 
 	tserved := time.Now()
 
-	d.log.Printf("[%d - %s] total:%v; resolve:%v; invoke:%v; serve:%v;",
+	d.log.Printf("[%s - %d - %s] total:%v; resolve:%v; invoke:%v; serve:%v;",
+		r.Method,
 		rw.Status(),
 		r.URL.Path,
 		tserved.Sub(tstart),
