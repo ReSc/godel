@@ -51,6 +51,8 @@ func serveControllersFrom(r *mux.Router, prefix string) {
 	})
 
 	g := graph.NewGraph().Init()
+	g.Root.Attrs.Set("type", "NODE")
+	g.Root.Attrs.Set("id", "ROOT")
 	d.Register(func() mvc.Controller {
 		return &GraphController{graph: g}
 	})

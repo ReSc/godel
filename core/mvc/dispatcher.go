@@ -108,7 +108,7 @@ func (d *Dispatcher) Register(factory ControllerFactory) {
 	}
 
 	d.register(cc)
-	d.log.Println("Registered controller ", cc.name)
+	d.log.Println("Registered controller", cc.name)
 }
 
 type controllerConfig struct {
@@ -152,7 +152,7 @@ func (d *Dispatcher) dispatch(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 
 	d.mutex.Lock()
-	ctrl, ok := d.controllers[v["controller"]]
+	cc, ok := d.controllers[v["controller"]]
 	d.mutex.Unlock()
 
 	if !ok {
@@ -161,24 +161,22 @@ func (d *Dispatcher) dispatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	action, ok := ctrl.actions.Get(r.Method, v["action"])
+	action, ok := cc.actions.Get(r.Method, v["action"])
 	if !ok {
-		d.log.Println("404 action not found ", ctrl.name, " ", v["action"])
+		d.log.Println("404 action not found ", cc.name, " ", v["action"])
 		http.NotFound(w, r)
 		return
 	}
 
-	c := ctrl.factory()
+	c := cc.factory()
 	v["__prefix"] = d.config.PathPrefix
-	v["__path"] = d.config.PathPrefix + "/" + ctrl.name
+	v["__path"] = d.config.PathPrefix + "/" + cc.name
 
 	rw := NewResponseWriter(w)
 
-	c.init(ctrl, v, rw, r)
+	c.init(cc, v, rw, r)
 
-	tresolved := time.Now()
-
-	result := action.Invoke(c)
+	result := invoke(c, action)
 
 	tinvoked := time.Now()
 
@@ -186,14 +184,13 @@ func (d *Dispatcher) dispatch(w http.ResponseWriter, r *http.Request) {
 
 	tserved := time.Now()
 
-	d.log.Printf("[%s - %d - %s] total:%v; resolve:%v; invoke:%v; serve:%v;",
-		r.Method,
+	d.log.Printf("[%d - %5s - %s] total:%.3fms; invoke:%.3fms; serve:%.3fms;",
 		rw.Status(),
+		r.Method,
 		r.URL.Path,
-		tserved.Sub(tstart),
-		tresolved.Sub(tstart),
-		tinvoked.Sub(tresolved),
-		tserved.Sub(tinvoked))
+		tserved.Sub(tstart).Seconds()*1000,
+		tinvoked.Sub(tstart).Seconds()*1000,
+		tserved.Sub(tinvoked).Seconds()*1000)
 }
 
 var (

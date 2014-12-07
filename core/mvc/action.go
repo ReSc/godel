@@ -12,7 +12,7 @@ type action struct {
 	method     reflect.Value
 }
 
-func (a *action) Invoke(c Controller) http.Handler {
+func invoke(c Controller, a *action) http.Handler {
 	receiver := reflect.ValueOf(c)
 	args := []reflect.Value{receiver}
 	results := a.method.Call(args)
@@ -35,7 +35,7 @@ func (a *action) Invoke(c Controller) http.Handler {
 	}
 }
 
-func (a *action) verifyMethodSignature(c interface{}) bool {
+func verifyMethodSignature(c interface{}, a *action) bool {
 	controllerValue := reflect.ValueOf(c)
 	ctrl := controllerValue.Interface()
 	m := a.method
@@ -72,7 +72,7 @@ func (m *actionMap) Add(c interface{}, httpMethod string, name string, method re
 		method:     method,
 		httpMethod: httpMethod,
 	}
-	if action.verifyMethodSignature(c) {
+	if verifyMethodSignature(c, action) {
 		m.actions = append(m.actions, action)
 		return true
 	} else {
@@ -82,9 +82,10 @@ func (m *actionMap) Add(c interface{}, httpMethod string, name string, method re
 
 func (m *actionMap) Get(httpMethod string, name string) (*action, bool) {
 	for i := range m.actions {
-		if m.actions[i].httpMethod == httpMethod &&
-			m.actions[i].name == name {
-			return m.actions[i], true
+		a := m.actions[i]
+		if a.httpMethod == httpMethod &&
+			a.name == name {
+			return a, true
 		}
 	}
 	return nil, false

@@ -6,9 +6,14 @@
 	<body>
 		<form action="./{{.Id}}" method="post">
 			<fieldset>
-				<legend>Node {{.Id}}</legend>
-				<input name="name"    type="text"   value="{{ .Attrs.name.Value }}" />
-				<input name="btnSave" type="submit" value="Save" /> 
+				<legend>Node {{.Id}} Attributes</legend>
+				<ul>
+					{{ range $key, $attr := .Attrs }}<li>
+					<label for="{{ $key }}">{{ $attr.Name }}</label>
+					<input id="{{ $key }}" name="{{ $key }}" type="text" value="{{ $attr.Value }}" />
+					</li>{{end}}
+				</ul>
+				<input name="btnSave" type="submit" value="Save" />
 			</fieldset>
 		</form>
 	</body>

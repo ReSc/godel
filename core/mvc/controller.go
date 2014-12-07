@@ -3,6 +3,7 @@ package mvc
 import (
 	"encoding/json"
 	"encoding/xml"
+	"github.com/gorilla/schema"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -172,6 +173,26 @@ func (h *viewHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+// Form ==================
+
+var formdecoder = schema.NewDecoder()
+
+func init() {
+	// set the schema tag to json
+	// so the decoder uses json tags
+	formdecoder.SetAliasTag("json")
+	formdecoder.IgnoreUnknownKeys(true)
+}
+
+// FormBody decodes the request form data into v and returns an error if decoding failed
+func (c *ControllerBase) FormBody(v interface{}) error {
+	err := c.Request.ParseForm()
+	if err != nil {
+		return err
+	}
+	return formdecoder.Decode(v, c.Request.Form)
 }
 
 // Json ==============================

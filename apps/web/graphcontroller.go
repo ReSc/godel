@@ -12,28 +12,6 @@ type GraphController struct {
 	graph *graph.Graph
 }
 
-func (c *GraphController) PostNodeEditor() http.Handler {
-	fmt.Printline("POST")
-	type args struct {
-		Name string `json:"name"`
-	}
-	a := new(args)
-	if err := c.JsonBody(a); err != nil {
-		fmt.Printline("%v", err)
-		return c.InternalServerError(err.Error())
-	}
-	if id, ok := c.IdAsInt64(); ok {
-		if n, ok := c.graph.Nodes[id]; ok {
-			n.Attrs.Set("name", a.Name)
-			fmt.Printline("REDIRECTING!")
-			return c.RedirectToMyAction("node-editor")
-		}
-	}
-
-	fmt.Printline("BADREQUEST!")
-	return c.BadRequest()
-}
-
 func (c *GraphController) GetNodeEditor() http.Handler {
 	if id, ok := c.IdAsInt64(); ok {
 		if n, ok := c.graph.Nodes[id]; ok {
@@ -41,6 +19,23 @@ func (c *GraphController) GetNodeEditor() http.Handler {
 		}
 	}
 	return c.NotFound()
+}
+
+func (c *GraphController) PostNodeEditor() http.Handler {
+	if id, ok := c.IdAsInt64(); ok {
+		if n, ok := c.graph.Nodes[id]; ok {
+			c.Request.ParseForm()
+			form := c.Request.Form
+			for _, key := range n.Attrs.Keys() {
+				if _, ok := form[key]; ok {
+					n.Attrs.Set(key, form.Get(key))
+				}
+			}
+			return c.RedirectTo(c.Controller(), c.Action(), fmt.String("%d", id))
+		}
+	}
+
+	return c.BadRequest()
 }
 
 func (c *GraphController) GetNode() http.Handler {
