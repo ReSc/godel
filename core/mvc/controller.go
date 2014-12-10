@@ -3,9 +3,11 @@ package mvc
 import (
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"github.com/gorilla/schema"
 	"html/template"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -103,7 +105,7 @@ func (c *ControllerBase) GetIndex() http.Handler {
 		aa = append(aa, a.name)
 		actions[a.httpMethod] = aa
 	}
-	return c.Json(actions)
+	return c.ViewAt("", c.Action(), actions)
 }
 
 // Redirect ==============================
@@ -150,14 +152,32 @@ func (h *redirectHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // View ==============================
 
 func (c *ControllerBase) View(model interface{}) http.Handler {
-	name := c.Action() + ".ht"
-	path := c.config.viewBasePath + "/" + name
+	return c.ViewAt(c.Controller(), c.Action(), model)
+}
+
+func (c *ControllerBase) ViewAt(controller, action string, model interface{}) http.Handler {
+	parts := []string{c.config.viewBasePath, ".."}
+	if len(controller) > 0 {
+		parts = append(parts, controller)
+	}
+	if len(action) > 0 {
+		parts = append(parts, action+".ht")
+	} else {
+		c.InternalServerError("Empty template")
+	}
+	path := filepath.Join(parts...)
+	path = filepath.Clean(path)
+	return c.parseAndRender(path, model)
+}
+
+func (c *ControllerBase) parseAndRender(path string, model interface{}) http.Handler {
+	fmt.Println("rendering", path)
 	t, err := template.ParseFiles(path)
 	if err != nil {
 		return c.InternalServerError(err.Error())
 	}
 	return &viewHandler{
-		view:  t.Lookup(name),
+		view:  t,
 		model: model,
 	}
 }
@@ -181,7 +201,7 @@ var formdecoder = schema.NewDecoder()
 
 func init() {
 	// set the schema tag to json
-	// so the decoder uses json tags
+	// so the decoder reuses json tags
 	formdecoder.SetAliasTag("json")
 	formdecoder.IgnoreUnknownKeys(true)
 }

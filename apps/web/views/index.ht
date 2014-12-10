@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+	<body>
+			<ul>
+				{{ range $method, $actions := . }}
+				{{ range  $action := $actions }}
+				{{ if eq $method "GET" }}
+				<li><a href="./{{ $action }}" >{{ $method }} {{ $action }}</a></li>
+				{{end}}{{ if eq $method "POST" }}
+				<li>
+				<form action="{{$action}}" method="{{$method}}">
+					<input type="submit" value="{{ $action }}" />
+				</form>
+				</li>
+				{{end}}
+				{{end}}{{end}}
+			</ul>
+		</form>
+	</body>
+</html>

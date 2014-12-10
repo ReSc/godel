@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nodes</title>
+	</head>
+	<body>
+		<ul>
+			{{ range $key, $attr := . }}<li>
+			{{ $attr }} <a href="./node-editor/{{ $key }}" >Edit</a>
+			</li>{{end}}
+		</ul>
+	</body>
+</html>

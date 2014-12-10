@@ -12,13 +12,45 @@ type GraphController struct {
 	graph *graph.Graph
 }
 
+func (c *GraphController) GetNodeCreate() http.Handler {
+	return c.View("")
+}
+func (c *GraphController) PostNodeCreate() http.Handler {
+	type args struct {
+		Name string `json:"name"`
+	}
+	a := new(args)
+	if err := c.FormBody(a); err == nil {
+		n := c.graph.NewNode(a.Name)
+		c.graph.Nodes.Add(n)
+		return c.RedirectTo(c.Controller(), "node-editor", fmt.String("%d", n.Id))
+	} else {
+		return c.InternalServerError(err.Error())
+	}
+	return c.BadRequest()
+}
+
+func (c *GraphController) GetNodeList() http.Handler {
+	if _, ok := c.Var("id"); !ok {
+		keys := c.graph.Nodes.Keys()
+		nodeNames := make(map[int64]string)
+		for _, key := range keys {
+			nodeNames[key] = c.graph.Nodes[key].Attrs["name"].Value
+		}
+		return c.View(nodeNames)
+	}
+
+	return c.BadRequest()
+}
+
 func (c *GraphController) GetNodeEditor() http.Handler {
 	if id, ok := c.IdAsInt64(); ok {
 		if n, ok := c.graph.Nodes[id]; ok {
 			return c.View(n)
 		}
 	}
-	return c.NotFound()
+
+	return c.RedirectToMyAction("node-list")
 }
 
 func (c *GraphController) PostNodeEditor() http.Handler {
