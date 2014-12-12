@@ -3,7 +3,6 @@ package mvc
 import (
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
 	"github.com/gorilla/schema"
 	"html/template"
 	"net/http"
@@ -181,11 +180,11 @@ func (c *ControllerBase) ViewAt(controller, action string, model interface{}) ht
 var viewPostFix = ".html"
 
 func (c *ControllerBase) parseAndRender(path string, model interface{}) http.Handler {
-	fmt.Println("rendering", path)
 	t, err := template.ParseFiles(path)
 	if err != nil {
 		return c.InternalServerError(err.Error())
 	}
+
 	return &viewHandler{
 		view:  t,
 		model: model,

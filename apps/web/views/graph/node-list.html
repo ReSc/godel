@@ -6,7 +6,7 @@
 	<body>
 		<ul>
 			{{ range $key, $attr := . }}<li>
-			{{ $attr }} <a href="./node-editor/{{ $key }}" >Edit</a>
+			<a href="./navigator/{{ $key }}" >{{ $attr }}</a> <a href="./node-editor/{{ $key }}" >Edit</a>
 			</li>{{end}}
 		</ul>
 	</body>

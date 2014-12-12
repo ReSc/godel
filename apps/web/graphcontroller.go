@@ -5,6 +5,7 @@ import (
 	"github.com/ReSc/godel/core/graph"
 	"github.com/ReSc/godel/core/mvc"
 	"net/http"
+	"strings"
 )
 
 type GraphController struct {
@@ -12,9 +13,100 @@ type GraphController struct {
 	graph *graph.Graph
 }
 
+func (c *GraphController) GetNavigator() http.Handler {
+	type Edge struct {
+		Id       int64  `json:"id"`
+		NodeId   int64  `json:"nodeid"`
+		PredId   int64  `json:"predid"`
+		NodeName string `json:"nodename"`
+		PredName string `json:"predname"`
+	}
+
+	type Attr struct {
+		Name  string
+		Value string
+	}
+
+	type Node struct {
+		Id    int64    `json:"id"`
+		Name  string   `json:"name"`
+		Tags  []string `json:"tags"`
+		Attrs []*Attr  `json:"attrs"`
+		In    []*Edge  `json:"in"`
+		Out   []*Edge  `json:"out"`
+	}
+
+	result := &Node{}
+	nn := c.graph.Nodes
+	if id, ok := c.IdAsInt64(); ok {
+		if n, ok := nn[id]; ok {
+			result.Id = id
+			result.Name = n.Name()
+			for tag, _ := range n.Tags {
+				result.Tags = append(result.Tags, tag)
+			}
+
+			for _, attr := range n.Attrs {
+				result.Attrs = append(result.Attrs, &Attr{attr.Name, attr.Value})
+			}
+
+			for _, e := range n.InEdges {
+				result.In = append(result.In, &Edge{
+					Id:       e.Id,
+					NodeId:   e.Sub,
+					NodeName: nn[e.Sub].Name(),
+					PredId:   e.Prd,
+					PredName: nn[e.Prd].Name(),
+				})
+			}
+			for _, e := range n.OutEdges {
+				result.Out = append(result.Out, &Edge{
+					Id:       e.Id,
+					NodeId:   e.Obj,
+					NodeName: nn[e.Obj].Name(),
+					PredId:   e.Prd,
+					PredName: nn[e.Prd].Name(),
+				})
+			}
+			return c.View(result)
+		}
+	}
+
+	return c.NotFound()
+}
+
+func (c *GraphController) GetAttributes() http.Handler {
+	type Result struct {
+		Name string `json:"name"`
+		Desc string `json:"description"`
+	}
+	query := c.Request.URL.Query().Get("q")
+	found := make(map[string]bool)
+	results := make([]Result, 0, 15)
+	for _, n := range c.graph.Nodes {
+		for _, attr := range n.Attrs {
+			if strings.Contains(attr.Name, query) {
+				if _, ok := found[attr.Name]; ok {
+					continue
+				}
+				found[attr.Name] = true
+				results = append(results, Result{attr.Name, attr.Name})
+				if len(results) == cap(results) {
+					break
+				}
+			}
+		}
+		if len(results) == cap(results) {
+			break
+		}
+	}
+	return c.Json(results)
+}
+
 func (c *GraphController) GetNodeCreate() http.Handler {
 	return c.View("")
 }
+
 func (c *GraphController) PostNodeCreate() http.Handler {
 	type Form struct {
 		Name string `json:"name"`

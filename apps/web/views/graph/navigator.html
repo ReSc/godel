@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nodes</title>
+		<style>
+		table { min-width:300px; }
+		tr { min-width:300px; }
+		td { min-width:100px; padding:5px; }
+		ul { }
+		.col-in   { text-align:right; }
+		.col-out  { text-align:left;  }
+		.col-node {
+			text-align:center;
+			border-left:1px solid #CECECE;
+			border-right:1px solid #CECECE;
+		}
+		.col-node ul { text-align:left;}
+		</style>
+	</head>
+	<body>
+		<a href="../node-list">All Nodes</a>
+		<table>
+			<tr><th>In</th><th>Node</th><th>Out</th></tr>
+			<tr>
+				<td class="col-in">
+					<ul>{{ range .In }}
+						<li><a href="./{{ .NodeId }}" >{{ .NodeName }}</a> --{{ .PredName }}--> </li>{{end}}
+					</ul>
+				</td>
+				<td class="col-node">
+
+					<a href="./{{ .Id }}" >{{ .Name }}</a>
+					<ul>
+						<li>Tags
+						<ul>{{ range .Tags }}
+							<li><code>{{.}}</code></li>{{end}}
+						</ul>
+						</li>
+						<li>Attributes
+						<ul>{{ range $attr:= .Attrs }}
+							<li>{{$attr.Name}}: <code>{{$attr.Value}}</code></li>{{end}}
+						</ul>
+						</li>
+					</fieldset>
+				</td>
+				<td class="col-out">
+					<ul>{{ range .Out }}
+						<li>--{{ .PredName }}--> <a href="./{{ .NodeId }}" >{{ .NodeName }}</a></li>{{end}}
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

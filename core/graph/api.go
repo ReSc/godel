@@ -102,3 +102,10 @@ func (g *Graph) DelNode(n *Node) bool {
 	}
 	return false
 }
+
+func (n *Node) Name() string {
+	if a, ok := n.Attrs["name"]; ok {
+		return a.Value
+	}
+	return ""
+}
