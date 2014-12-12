@@ -16,12 +16,12 @@ func (c *GraphController) GetNodeCreate() http.Handler {
 	return c.View("")
 }
 func (c *GraphController) PostNodeCreate() http.Handler {
-	type args struct {
+	type Form struct {
 		Name string `json:"name"`
 	}
-	a := new(args)
-	if err := c.FormBody(a); err == nil {
-		n := c.graph.NewNode(a.Name)
+	form := new(Form)
+	if err := c.FormBody(form); err == nil {
+		n := c.graph.NewNode(form.Name)
 		c.graph.Nodes.Add(n)
 		return c.RedirectTo(c.Controller(), "node-editor", fmt.String("%d", n.Id))
 	} else {

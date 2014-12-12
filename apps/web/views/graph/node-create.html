@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Create Node</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-resource.min.js"></script>
+		<script >
+		(function(){
+			angular.module("nodeCreator",["ngResource"])
+			       .controller("NodeCreateController",["$scope",function($scope){
+					$scope.newAttrKey="";
+					$scope.newAttrValue="";
+					$scope.attrs = [
+						{key:"name",value:"New Node"},
+						{key:"type",value:"node"},
+					];
+					$scope.addAttr = function() {
+						if ($scope.newAttrKey === ""){
+							return;
+						}
+						$scope.attrs.push({key:$scope.newAttrKey,value:$scope.newAttrValue});
+						$scope.newAttrKey="";
+						$scope.newAttrValue="";
+					};
+
+			        }]);
+		})();
+
+		</script>
+		<style type="text/css">
+
+		.textInput {
+		    width: 150px;
+		 }
+
+		.inputwrap label {
+		    display: inline-block;
+		    width: 60px;
+		    text-align: right;
+			padding-right:.3em;
+		}
+		</style>
+	</head>
+	<body ng-app="nodeCreator">
+	<div ng-controller="NodeCreateController">
+			<fieldset>
+				<legend>New Node</legend>
+				<form action="./node-create" method="post">
+					<div class="inputwrap" ng-repeat="attr in attrs" >
+						<label for="{{attr.key}}">{{attr.key}}</label>
+						<input class="textInput" id="{{attr.key}}" name="{{attr.key}}" type="text" value="{{attr.value}}" />
+					</div>
+					<input name="btnCreate" type="submit" value="Create" />
+				</form>
+
+				<form ng-submit="addAttr()">
+					<input type="text" ng-model="newAttrKey"    size="30" placeholder="name">
+					<input type="text" ng-model="newAttrValue"  size="30" placeholder="value">
+        			<input type="submit" value="add">
+				</form>
+			</fieldset>
+	</div>
+	</body>
+</html>

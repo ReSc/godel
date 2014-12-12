@@ -157,18 +157,28 @@ func (c *ControllerBase) View(model interface{}) http.Handler {
 
 func (c *ControllerBase) ViewAt(controller, action string, model interface{}) http.Handler {
 	parts := []string{c.config.viewBasePath, ".."}
+
 	if len(controller) > 0 {
 		parts = append(parts, controller)
 	}
+
 	if len(action) > 0 {
-		parts = append(parts, action+".ht")
+		parts = append(parts, action+viewPostFix)
 	} else {
 		c.InternalServerError("Empty template")
 	}
+
 	path := filepath.Join(parts...)
 	path = filepath.Clean(path)
-	return c.parseAndRender(path, model)
+
+	if s, ok := model.(string); ok && s == "" {
+		return c.File(path)
+	} else {
+		return c.parseAndRender(path, model)
+	}
 }
+
+var viewPostFix = ".html"
 
 func (c *ControllerBase) parseAndRender(path string, model interface{}) http.Handler {
 	fmt.Println("rendering", path)
@@ -193,6 +203,20 @@ func (h *viewHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+// File ==================
+
+func (c *ControllerBase) File(path string) http.Handler {
+	return &fileHandler{path}
+}
+
+type fileHandler struct {
+	path string
+}
+
+func (h *fileHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, h.path)
 }
 
 // Form ==================
