@@ -1,16 +1,39 @@
 package main
 
 import (
+	"encoding/xml"
 	"github.com/ReSc/fmt"
 	"github.com/ReSc/godel/core/graph"
 	"github.com/ReSc/godel/core/mvc"
 	"net/http"
+	"os"
 	"strings"
 )
 
 type GraphController struct {
 	mvc.ControllerBase
 	graph *graph.Graph
+}
+
+func (c *GraphController) PostLoad() http.Handler {
+	return c.NotFound()
+}
+
+func (c *GraphController) PostSave() http.Handler {
+	path := "./data/graph.xml"
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC, 0x755)
+	defer file.Close()
+	if err != nil {
+		return c.InternalServerError(err.Error())
+	}
+	e := xml.NewEncoder(file)
+	e.Indent("", "\t")
+	err = e.Encode(c.graph)
+	if err != nil {
+		return c.InternalServerError(err.Error())
+	}
+	e.Flush()
+	return c.RedirectToMyAction("index")
 }
 
 func (c *GraphController) GetNavigator() http.Handler {

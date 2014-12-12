@@ -7,8 +7,8 @@ import (
 
 // Attr is a struct
 type Attr struct {
-	Name  string
-	Value string
+	Name  string `xml:",attr"`
+	Value string `xml:",attr"`
 }
 
 // NewAttr creates a new instance of Attr
@@ -111,10 +111,10 @@ func (this AttrMap) Values() []*Attr {
 
 // Edge is a struct
 type Edge struct {
-	Id  int64
-	Obj int64
-	Prd int64
-	Sub int64
+	Id  int64 `xml:",attr"`
+	Obj int64 `xml:",attr"`
+	Prd int64 `xml:",attr"`
+	Sub int64 `xml:",attr"`
 }
 
 // NewEdge creates a new instance of Edge
@@ -269,11 +269,11 @@ func (this EdgeMap) Values() []*Edge {
 
 // Graph is a struct
 type Graph struct {
-	Edges      EdgeMap
-	Id         int64
-	Name       string
+	Edges      EdgeMap `xml:"-"`
+	Id         int64   `xml:",attr"`
+	Name       string  `xml:",attr"`
 	Nodes      NodeMap
-	Root       *Node
+	Root       *Node `xml:"-"`
 	nextEdgeId int64
 	nextNodeId int64
 }
@@ -288,7 +288,7 @@ func NewGraph() *Graph {
 // Node is a struct
 type Node struct {
 	Attrs    AttrMap
-	Id       int64
+	Id       int64 `xml:",attr"`
 	InEdges  EdgeList
 	OutEdges EdgeList
 	Tags     TagSet

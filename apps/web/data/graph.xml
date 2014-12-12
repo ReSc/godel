@@ -1,0 +1,1305 @@
+<Graph Id="0" Name="">
+	<Node Id="56">
+		<Attr Name="name" Value="Table"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="50" Obj="56" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="88">
+		<Attr Name="name" Value="Attrs"></Attr>
+		<Attr Name="data-type" Value="AttrMap"></Attr>
+		<In Id="82" Obj="88" Prd="9" Sub="84"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="120">
+		<Attr Name="name" Value="Path"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="114" Obj="120" Prd="9" Sub="118"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="152">
+		<Attr Name="name" Value="March"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="146" Obj="152" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="24">
+		<Attr Name="name" Value="EdgeMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Edge, Key:Id)"></Attr>
+		<In Id="19" Obj="24" Prd="6" Sub="3"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="57">
+		<Attr Name="name" Value="Stack"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="51" Obj="57" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="89">
+		<Attr Name="name" Value="Type"></Attr>
+		<Attr Name="data-type" Value="*Type"></Attr>
+		<In Id="83" Obj="89" Prd="9" Sub="84"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="121">
+		<Attr Name="name" Value="Packages"></Attr>
+		<Attr Name="data-type" Value="PackageMap"></Attr>
+		<In Id="115" Obj="121" Prd="9" Sub="118"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="153">
+		<Attr Name="name" Value="May"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="147" Obj="153" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="25">
+		<Attr Name="name" Value="Edge"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="20" Obj="25" Prd="6" Sub="3"></In>
+		<Out Id="21" Obj="26" Prd="9" Sub="25"></Out>
+		<Out Id="22" Obj="27" Prd="9" Sub="25"></Out>
+		<Out Id="23" Obj="28" Prd="9" Sub="25"></Out>
+		<Out Id="24" Obj="29" Prd="9" Sub="25"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="58">
+		<Attr Name="name" Value="DockContainer"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="52" Obj="58" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="90">
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<Attr Name="name" Value="Package"></Attr>
+		<In Id="84" Obj="90" Prd="6" Sub="76"></In>
+		<Out Id="85" Obj="91" Prd="9" Sub="90"></Out>
+		<Out Id="86" Obj="92" Prd="9" Sub="90"></Out>
+		<Out Id="87" Obj="93" Prd="9" Sub="90"></Out>
+		<Out Id="88" Obj="94" Prd="9" Sub="90"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="122">
+		<Attr Name="name" Value="PackageMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Package, Key:Name)"></Attr>
+		<In Id="116" Obj="122" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="154">
+		<Attr Name="name" Value="August"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="148" Obj="154" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="26">
+		<Attr Name="name" Value="Id"></Attr>
+		<Attr Name="data-type" Value="int64"></Attr>
+		<In Id="21" Obj="26" Prd="9" Sub="25"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="59">
+		<Attr Name="name" Value="Label"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="53" Obj="59" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="91">
+		<Attr Name="name" Value="Types"></Attr>
+		<Attr Name="data-type" Value="TypeMap"></Attr>
+		<In Id="85" Obj="91" Prd="9" Sub="90"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="123">
+		<Attr Name="name" Value="TypeMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Type, Key:Name)"></Attr>
+		<In Id="117" Obj="123" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="155">
+		<Attr Name="name" Value="strings"></Attr>
+		<Attr Name="path" Value="strings"></Attr>
+		<In Id="149" Obj="155" Prd="35" Sub="133"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="27">
+		<Attr Name="data-type" Value="*Node"></Attr>
+		<Attr Name="name" Value="Sub"></Attr>
+		<In Id="22" Obj="27" Prd="9" Sub="25"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="60">
+		<Attr Name="name" Value="Input"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="54" Obj="60" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="92">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="86" Obj="92" Prd="9" Sub="90"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="124">
+		<Attr Name="name" Value="FieldMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Field, Key:Name)"></Attr>
+		<In Id="118" Obj="124" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="156">
+		<Attr Name="name" Value="ebnf"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\ebnf"></Attr>
+		<In Id="150" Obj="156" Prd="4" Sub="1"></In>
+		<Out Id="151" Obj="157" Prd="6" Sub="156"></Out>
+		<Out Id="152" Obj="158" Prd="6" Sub="156"></Out>
+		<Out Id="157" Obj="163" Prd="6" Sub="156"></Out>
+		<Out Id="158" Obj="164" Prd="6" Sub="156"></Out>
+		<Out Id="159" Obj="165" Prd="6" Sub="156"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="28">
+		<Attr Name="data-type" Value="*Node"></Attr>
+		<Attr Name="name" Value="Prd"></Attr>
+		<In Id="23" Obj="28" Prd="9" Sub="25"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="61">
+		<Attr Name="name" Value="TabContainer"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="55" Obj="61" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="93">
+		<Attr Name="name" Value="Model"></Attr>
+		<Attr Name="data-type" Value="*Model"></Attr>
+		<In Id="87" Obj="93" Prd="9" Sub="90"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="125">
+		<Attr Name="name" Value="Visitor"></Attr>
+		<Attr Name="meta-type" Value="interface()"></Attr>
+		<In Id="119" Obj="125" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="157">
+		<Attr Name="name" Value="Ebnf"></Attr>
+		<Attr Name="meta-type" Value="ebnf(*parser, Key:Kind)"></Attr>
+		<In Id="151" Obj="157" Prd="6" Sub="156"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="29">
+		<Attr Name="name" Value="Obj"></Attr>
+		<Attr Name="data-type" Value="*Node"></Attr>
+		<In Id="24" Obj="29" Prd="9" Sub="25"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="62">
+		<Attr Name="name" Value="Layout"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="56" Obj="62" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="94">
+		<Attr Name="name" Value="Imports"></Attr>
+		<Attr Name="data-type" Value="ImportMap"></Attr>
+		<In Id="88" Obj="94" Prd="9" Sub="90"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="126">
+		<Attr Name="name" Value="AttrMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Attr, Key:Name)"></Attr>
+		<In Id="120" Obj="126" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="158">
+		<Attr Name="name" Value="parser"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="152" Obj="158" Prd="6" Sub="156"></In>
+		<Out Id="153" Obj="159" Prd="9" Sub="158"></Out>
+		<Out Id="154" Obj="160" Prd="9" Sub="158"></Out>
+		<Out Id="155" Obj="161" Prd="9" Sub="158"></Out>
+		<Out Id="156" Obj="162" Prd="9" Sub="158"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="30">
+		<Attr Name="name" Value="AttrMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Attr, Key:Name)"></Attr>
+		<In Id="25" Obj="30" Prd="6" Sub="3"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="63">
+		<Attr Name="meta-type" Value="interface()"></Attr>
+		<Attr Name="name" Value="Any"></Attr>
+		<In Id="57" Obj="63" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="95">
+		<Attr Name="name" Value="ImportMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Import, Key:Path)"></Attr>
+		<In Id="89" Obj="95" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="127">
+		<Attr Name="name" Value="Attr"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="121" Obj="127" Prd="6" Sub="76"></In>
+		<Out Id="122" Obj="128" Prd="9" Sub="127"></Out>
+		<Out Id="123" Obj="129" Prd="9" Sub="127"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="159">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="153" Obj="159" Prd="9" Sub="158"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="31">
+		<Attr Name="name" Value="Attr"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="26" Obj="31" Prd="6" Sub="3"></In>
+		<Out Id="27" Obj="32" Prd="9" Sub="31"></Out>
+		<Out Id="28" Obj="33" Prd="9" Sub="31"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="48">
+		<Attr Name="meta-type" Value="primitive(float32)"></Attr>
+		<Attr Name="name" Value="float32"></Attr>
+		<In Id="42" Obj="48" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="80">
+		<Attr Name="name" Value="Fields"></Attr>
+		<Attr Name="data-type" Value="FieldMap"></Attr>
+		<In Id="74" Obj="80" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="112">
+		<Attr Name="name" Value="Params"></Attr>
+		<Attr Name="data-type" Value="*ParamMap"></Attr>
+		<In Id="106" Obj="112" Prd="9" Sub="110"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="144">
+		<Attr Name="name" Value="July"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="138" Obj="144" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="16">
+		<Attr Name="name" Value="Node"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="11" Obj="16" Prd="6" Sub="3"></In>
+		<Out Id="12" Obj="17" Prd="9" Sub="16"></Out>
+		<Out Id="13" Obj="18" Prd="9" Sub="16"></Out>
+		<Out Id="14" Obj="19" Prd="9" Sub="16"></Out>
+		<Out Id="15" Obj="20" Prd="9" Sub="16"></Out>
+		<Out Id="16" Obj="21" Prd="9" Sub="16"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="49">
+		<Attr Name="name" Value="string"></Attr>
+		<Attr Name="meta-type" Value="primitive(string)"></Attr>
+		<In Id="43" Obj="49" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="81">
+		<Attr Name="name" Value="Methods"></Attr>
+		<Attr Name="data-type" Value="MethodMap"></Attr>
+		<In Id="75" Obj="81" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="113">
+		<Attr Name="name" Value="Returns"></Attr>
+		<Attr Name="data-type" Value="*ParamMap"></Attr>
+		<In Id="107" Obj="113" Prd="9" Sub="110"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="145">
+		<Attr Name="name" Value="October"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="139" Obj="145" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="17">
+		<Attr Name="name" Value="Id"></Attr>
+		<Attr Name="data-type" Value="int64"></Attr>
+		<In Id="12" Obj="17" Prd="9" Sub="16"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="50">
+		<Attr Name="name" Value="codegen"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\codegen"></Attr>
+		<In Id="44" Obj="50" Prd="4" Sub="1"></In>
+		<Out Id="45" Obj="51" Prd="6" Sub="50"></Out>
+		<Out Id="47" Obj="53" Prd="35" Sub="50"></Out>
+		<Out Id="48" Obj="54" Prd="35" Sub="50"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="82">
+		<Attr Name="name" Value="Package"></Attr>
+		<Attr Name="data-type" Value="*Package"></Attr>
+		<In Id="76" Obj="82" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="114">
+		<Attr Name="name" Value="ParamMap"></Attr>
+		<Attr Name="meta-type" Value="listmap(*Param, Key:Name)"></Attr>
+		<In Id="108" Obj="114" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="146">
+		<Attr Name="name" Value="November"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="140" Obj="146" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="18">
+		<Attr Name="data-type" Value="TagSet"></Attr>
+		<Attr Name="name" Value="Tags"></Attr>
+		<In Id="13" Obj="18" Prd="9" Sub="16"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="51">
+		<Attr Name="name" Value="ModelGraphBuilder"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="45" Obj="51" Prd="6" Sub="50"></In>
+		<Out Id="46" Obj="52" Prd="9" Sub="51"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="83">
+		<Attr Name="name" Value="Meta"></Attr>
+		<Attr Name="data-type" Value="*MetaType"></Attr>
+		<In Id="77" Obj="83" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="115">
+		<Attr Name="name" Value="Param"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="109" Obj="115" Prd="6" Sub="76"></In>
+		<Out Id="110" Obj="116" Prd="9" Sub="115"></Out>
+		<Out Id="111" Obj="117" Prd="9" Sub="115"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="147">
+		<Attr Name="name" Value="Januari"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="141" Obj="147" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="19">
+		<Attr Name="name" Value="Attrs"></Attr>
+		<Attr Name="data-type" Value="AttrMap"></Attr>
+		<In Id="14" Obj="19" Prd="9" Sub="16"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="52">
+		<Attr Name="name" Value="Graph"></Attr>
+		<Attr Name="data-type" Value="*graph.Graph"></Attr>
+		<In Id="46" Obj="52" Prd="9" Sub="51"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="84">
+		<Attr Name="name" Value="Field"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="78" Obj="84" Prd="6" Sub="76"></In>
+		<Out Id="79" Obj="85" Prd="9" Sub="84"></Out>
+		<Out Id="80" Obj="86" Prd="9" Sub="84"></Out>
+		<Out Id="81" Obj="87" Prd="9" Sub="84"></Out>
+		<Out Id="82" Obj="88" Prd="9" Sub="84"></Out>
+		<Out Id="83" Obj="89" Prd="9" Sub="84"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="116">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="110" Obj="116" Prd="9" Sub="115"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="148">
+		<Attr Name="name" Value="February"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="142" Obj="148" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="20">
+		<Attr Name="name" Value="InEdges"></Attr>
+		<Attr Name="data-type" Value="EdgeList"></Attr>
+		<In Id="15" Obj="20" Prd="9" Sub="16"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="53">
+		<Attr Name="name" Value="reflect"></Attr>
+		<Attr Name="path" Value="github.com/ReSc/godel/core/reflect"></Attr>
+		<In Id="47" Obj="53" Prd="35" Sub="50"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="85">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="79" Obj="85" Prd="9" Sub="84"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="117">
+		<Attr Name="name" Value="DataType"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="111" Obj="117" Prd="9" Sub="115"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="149">
+		<Attr Name="name" Value="April"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="143" Obj="149" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="21">
+		<Attr Name="name" Value="OutEdges"></Attr>
+		<Attr Name="data-type" Value="EdgeList"></Attr>
+		<In Id="16" Obj="21" Prd="9" Sub="16"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="54">
+		<Attr Name="path" Value="github.com/ReSc/godel/core/graph"></Attr>
+		<Attr Name="name" Value="graph"></Attr>
+		<In Id="48" Obj="54" Prd="35" Sub="50"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="86">
+		<Attr Name="name" Value="DataType"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="80" Obj="86" Prd="9" Sub="84"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="118">
+		<Attr Name="name" Value="Model"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="112" Obj="118" Prd="6" Sub="76"></In>
+		<Out Id="113" Obj="119" Prd="9" Sub="118"></Out>
+		<Out Id="114" Obj="120" Prd="9" Sub="118"></Out>
+		<Out Id="115" Obj="121" Prd="9" Sub="118"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="150">
+		<Attr Name="name" Value="September"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="144" Obj="150" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="22">
+		<Attr Name="name" Value="TagSet"></Attr>
+		<Attr Name="meta-type" Value="set(string)"></Attr>
+		<In Id="17" Obj="22" Prd="6" Sub="3"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="55">
+		<Attr Name="name" Value="mirror"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\mirror"></Attr>
+		<In Id="49" Obj="55" Prd="4" Sub="1"></In>
+		<Out Id="50" Obj="56" Prd="6" Sub="55"></Out>
+		<Out Id="51" Obj="57" Prd="6" Sub="55"></Out>
+		<Out Id="52" Obj="58" Prd="6" Sub="55"></Out>
+		<Out Id="53" Obj="59" Prd="6" Sub="55"></Out>
+		<Out Id="54" Obj="60" Prd="6" Sub="55"></Out>
+		<Out Id="55" Obj="61" Prd="6" Sub="55"></Out>
+		<Out Id="56" Obj="62" Prd="6" Sub="55"></Out>
+		<Out Id="57" Obj="63" Prd="6" Sub="55"></Out>
+		<Out Id="58" Obj="64" Prd="6" Sub="55"></Out>
+		<Out Id="60" Obj="66" Prd="6" Sub="55"></Out>
+		<Out Id="61" Obj="67" Prd="6" Sub="55"></Out>
+		<Out Id="62" Obj="68" Prd="6" Sub="55"></Out>
+		<Out Id="63" Obj="69" Prd="6" Sub="55"></Out>
+		<Out Id="69" Obj="75" Prd="35" Sub="55"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="87">
+		<Attr Name="data-type" Value="string"></Attr>
+		<Attr Name="name" Value="Value"></Attr>
+		<In Id="81" Obj="87" Prd="9" Sub="84"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="119">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="113" Obj="119" Prd="9" Sub="118"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="151">
+		<Attr Name="name" Value="December"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="145" Obj="151" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="23">
+		<Attr Name="name" Value="EdgeList"></Attr>
+		<Attr Name="meta-type" Value="list(*Edge)"></Attr>
+		<In Id="18" Obj="23" Prd="6" Sub="3"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="40">
+		<Attr Name="name" Value="int16"></Attr>
+		<Attr Name="meta-type" Value="primitive(int16)"></Attr>
+		<In Id="34" Obj="40" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="72">
+		<Attr Name="name" Value="DataValue"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="66" Obj="72" Prd="9" Sub="69"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="104">
+		<Attr Name="name" Value="ElementName"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="98" Obj="104" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="136">
+		<Attr Name="name" Value="Monday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="130" Obj="136" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="8">
+		<Attr Name="data-type" Value="int64"></Attr>
+		<Attr Name="name" Value="nextEdgeId"></Attr>
+		<In Id="4" Obj="8" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="41">
+		<Attr Name="name" Value="int32"></Attr>
+		<Attr Name="meta-type" Value="primitive(int32)"></Attr>
+		<In Id="35" Obj="41" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="73">
+		<Attr Name="name" Value="Current"></Attr>
+		<Attr Name="data-type" Value="Any"></Attr>
+		<In Id="67" Obj="73" Prd="9" Sub="69"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="105">
+		<Attr Name="name" Value="ElementType"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="99" Obj="105" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="137">
+		<Attr Name="name" Value="Tuesday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="131" Obj="137" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="9">
+		<Attr Name="name" Value="field"></Attr>
+		<In Id="4" Obj="8" Prd="9" Sub="7"></In>
+		<In Id="5" Obj="10" Prd="9" Sub="7"></In>
+		<In Id="6" Obj="11" Prd="9" Sub="7"></In>
+		<In Id="7" Obj="12" Prd="9" Sub="7"></In>
+		<In Id="8" Obj="13" Prd="9" Sub="7"></In>
+		<In Id="9" Obj="14" Prd="9" Sub="7"></In>
+		<In Id="10" Obj="15" Prd="9" Sub="7"></In>
+		<In Id="12" Obj="17" Prd="9" Sub="16"></In>
+		<In Id="13" Obj="18" Prd="9" Sub="16"></In>
+		<In Id="14" Obj="19" Prd="9" Sub="16"></In>
+		<In Id="15" Obj="20" Prd="9" Sub="16"></In>
+		<In Id="16" Obj="21" Prd="9" Sub="16"></In>
+		<In Id="21" Obj="26" Prd="9" Sub="25"></In>
+		<In Id="22" Obj="27" Prd="9" Sub="25"></In>
+		<In Id="23" Obj="28" Prd="9" Sub="25"></In>
+		<In Id="24" Obj="29" Prd="9" Sub="25"></In>
+		<In Id="27" Obj="32" Prd="9" Sub="31"></In>
+		<In Id="28" Obj="33" Prd="9" Sub="31"></In>
+		<In Id="46" Obj="52" Prd="9" Sub="51"></In>
+		<In Id="59" Obj="65" Prd="9" Sub="64"></In>
+		<In Id="64" Obj="70" Prd="9" Sub="69"></In>
+		<In Id="65" Obj="71" Prd="9" Sub="69"></In>
+		<In Id="66" Obj="72" Prd="9" Sub="69"></In>
+		<In Id="67" Obj="73" Prd="9" Sub="69"></In>
+		<In Id="68" Obj="74" Prd="9" Sub="69"></In>
+		<In Id="72" Obj="78" Prd="9" Sub="77"></In>
+		<In Id="73" Obj="79" Prd="9" Sub="77"></In>
+		<In Id="74" Obj="80" Prd="9" Sub="77"></In>
+		<In Id="75" Obj="81" Prd="9" Sub="77"></In>
+		<In Id="76" Obj="82" Prd="9" Sub="77"></In>
+		<In Id="77" Obj="83" Prd="9" Sub="77"></In>
+		<In Id="79" Obj="85" Prd="9" Sub="84"></In>
+		<In Id="80" Obj="86" Prd="9" Sub="84"></In>
+		<In Id="81" Obj="87" Prd="9" Sub="84"></In>
+		<In Id="82" Obj="88" Prd="9" Sub="84"></In>
+		<In Id="83" Obj="89" Prd="9" Sub="84"></In>
+		<In Id="85" Obj="91" Prd="9" Sub="90"></In>
+		<In Id="86" Obj="92" Prd="9" Sub="90"></In>
+		<In Id="87" Obj="93" Prd="9" Sub="90"></In>
+		<In Id="88" Obj="94" Prd="9" Sub="90"></In>
+		<In Id="91" Obj="97" Prd="9" Sub="96"></In>
+		<In Id="92" Obj="98" Prd="9" Sub="96"></In>
+		<In Id="93" Obj="99" Prd="9" Sub="96"></In>
+		<In Id="95" Obj="101" Prd="9" Sub="100"></In>
+		<In Id="96" Obj="102" Prd="9" Sub="100"></In>
+		<In Id="97" Obj="103" Prd="9" Sub="100"></In>
+		<In Id="98" Obj="104" Prd="9" Sub="100"></In>
+		<In Id="99" Obj="105" Prd="9" Sub="100"></In>
+		<In Id="100" Obj="106" Prd="9" Sub="100"></In>
+		<In Id="101" Obj="107" Prd="9" Sub="100"></In>
+		<In Id="102" Obj="108" Prd="9" Sub="100"></In>
+		<In Id="105" Obj="111" Prd="9" Sub="110"></In>
+		<In Id="106" Obj="112" Prd="9" Sub="110"></In>
+		<In Id="107" Obj="113" Prd="9" Sub="110"></In>
+		<In Id="110" Obj="116" Prd="9" Sub="115"></In>
+		<In Id="111" Obj="117" Prd="9" Sub="115"></In>
+		<In Id="113" Obj="119" Prd="9" Sub="118"></In>
+		<In Id="114" Obj="120" Prd="9" Sub="118"></In>
+		<In Id="115" Obj="121" Prd="9" Sub="118"></In>
+		<In Id="122" Obj="128" Prd="9" Sub="127"></In>
+		<In Id="123" Obj="129" Prd="9" Sub="127"></In>
+		<In Id="129" Obj="135" Prd="9" Sub="134"></In>
+		<In Id="130" Obj="136" Prd="9" Sub="134"></In>
+		<In Id="131" Obj="137" Prd="9" Sub="134"></In>
+		<In Id="132" Obj="138" Prd="9" Sub="134"></In>
+		<In Id="133" Obj="139" Prd="9" Sub="134"></In>
+		<In Id="134" Obj="140" Prd="9" Sub="134"></In>
+		<In Id="135" Obj="141" Prd="9" Sub="134"></In>
+		<In Id="137" Obj="143" Prd="9" Sub="142"></In>
+		<In Id="138" Obj="144" Prd="9" Sub="142"></In>
+		<In Id="139" Obj="145" Prd="9" Sub="142"></In>
+		<In Id="140" Obj="146" Prd="9" Sub="142"></In>
+		<In Id="141" Obj="147" Prd="9" Sub="142"></In>
+		<In Id="142" Obj="148" Prd="9" Sub="142"></In>
+		<In Id="143" Obj="149" Prd="9" Sub="142"></In>
+		<In Id="144" Obj="150" Prd="9" Sub="142"></In>
+		<In Id="145" Obj="151" Prd="9" Sub="142"></In>
+		<In Id="146" Obj="152" Prd="9" Sub="142"></In>
+		<In Id="147" Obj="153" Prd="9" Sub="142"></In>
+		<In Id="148" Obj="154" Prd="9" Sub="142"></In>
+		<In Id="153" Obj="159" Prd="9" Sub="158"></In>
+		<In Id="154" Obj="160" Prd="9" Sub="158"></In>
+		<In Id="155" Obj="161" Prd="9" Sub="158"></In>
+		<In Id="156" Obj="162" Prd="9" Sub="158"></In>
+		<Tag>predicate</Tag>
+	</Node>
+	<Node Id="42">
+		<Attr Name="name" Value="uint64"></Attr>
+		<Attr Name="meta-type" Value="primitive(uint64)"></Attr>
+		<In Id="36" Obj="42" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="74">
+		<Attr Name="name" Value="CurrentIndex"></Attr>
+		<Attr Name="data-type" Value="int"></Attr>
+		<In Id="68" Obj="74" Prd="9" Sub="69"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="106">
+		<Attr Name="name" Value="ElementTypeName"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="100" Obj="106" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="138">
+		<Attr Name="name" Value="Wednesday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="132" Obj="138" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="10">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="5" Obj="10" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="43">
+		<Attr Name="name" Value="float64"></Attr>
+		<Attr Name="meta-type" Value="primitive(float64)"></Attr>
+		<In Id="37" Obj="43" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="75">
+		<Attr Name="name" Value="reflect"></Attr>
+		<Attr Name="path" Value="github.com/ReSc/godel/core/reflect"></Attr>
+		<In Id="69" Obj="75" Prd="35" Sub="55"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="107">
+		<Attr Name="data-type" Value="bool"></Attr>
+		<Attr Name="name" Value="IsContainer"></Attr>
+		<In Id="101" Obj="107" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="139">
+		<Attr Name="name" Value="Thursday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="133" Obj="139" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="11">
+		<Attr Name="name" Value="Root"></Attr>
+		<Attr Name="data-type" Value="*Node"></Attr>
+		<In Id="6" Obj="11" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="44">
+		<Attr Name="name" Value="rune"></Attr>
+		<Attr Name="meta-type" Value="primitive(int32)"></Attr>
+		<In Id="38" Obj="44" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="76">
+		<Attr Name="name" Value="reflect2"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\reflect2"></Attr>
+		<In Id="70" Obj="76" Prd="4" Sub="1"></In>
+		<Out Id="71" Obj="77" Prd="6" Sub="76"></Out>
+		<Out Id="78" Obj="84" Prd="6" Sub="76"></Out>
+		<Out Id="84" Obj="90" Prd="6" Sub="76"></Out>
+		<Out Id="89" Obj="95" Prd="6" Sub="76"></Out>
+		<Out Id="90" Obj="96" Prd="6" Sub="76"></Out>
+		<Out Id="94" Obj="100" Prd="6" Sub="76"></Out>
+		<Out Id="103" Obj="109" Prd="6" Sub="76"></Out>
+		<Out Id="104" Obj="110" Prd="6" Sub="76"></Out>
+		<Out Id="108" Obj="114" Prd="6" Sub="76"></Out>
+		<Out Id="109" Obj="115" Prd="6" Sub="76"></Out>
+		<Out Id="112" Obj="118" Prd="6" Sub="76"></Out>
+		<Out Id="116" Obj="122" Prd="6" Sub="76"></Out>
+		<Out Id="117" Obj="123" Prd="6" Sub="76"></Out>
+		<Out Id="118" Obj="124" Prd="6" Sub="76"></Out>
+		<Out Id="119" Obj="125" Prd="6" Sub="76"></Out>
+		<Out Id="120" Obj="126" Prd="6" Sub="76"></Out>
+		<Out Id="121" Obj="127" Prd="6" Sub="76"></Out>
+		<Out Id="124" Obj="130" Prd="6" Sub="76"></Out>
+		<Out Id="125" Obj="131" Prd="35" Sub="76"></Out>
+		<Out Id="126" Obj="132" Prd="35" Sub="76"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="108">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="102" Obj="108" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="140">
+		<Attr Name="name" Value="Friday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="134" Obj="140" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="12">
+		<Attr Name="name" Value="Nodes"></Attr>
+		<Attr Name="data-type" Value="NodeMap"></Attr>
+		<In Id="7" Obj="12" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="45">
+		<Attr Name="name" Value="int64"></Attr>
+		<Attr Name="meta-type" Value="primitive(int64)"></Attr>
+		<In Id="39" Obj="45" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="77">
+		<Attr Name="name" Value="Type"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="71" Obj="77" Prd="6" Sub="76"></In>
+		<Out Id="72" Obj="78" Prd="9" Sub="77"></Out>
+		<Out Id="73" Obj="79" Prd="9" Sub="77"></Out>
+		<Out Id="74" Obj="80" Prd="9" Sub="77"></Out>
+		<Out Id="75" Obj="81" Prd="9" Sub="77"></Out>
+		<Out Id="76" Obj="82" Prd="9" Sub="77"></Out>
+		<Out Id="77" Obj="83" Prd="9" Sub="77"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="109">
+		<Attr Name="name" Value="MethodMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Method, Key:Name)"></Attr>
+		<In Id="103" Obj="109" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="141">
+		<Attr Name="name" Value="Saturday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="135" Obj="141" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="13">
+		<Attr Name="name" Value="Edges"></Attr>
+		<Attr Name="data-type" Value="EdgeMap"></Attr>
+		<In Id="8" Obj="13" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="46">
+		<Attr Name="name" Value="uint16"></Attr>
+		<Attr Name="meta-type" Value="primitive(uint64)"></Attr>
+		<In Id="40" Obj="46" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="78">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="72" Obj="78" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="110">
+		<Attr Name="name" Value="Method"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="104" Obj="110" Prd="6" Sub="76"></In>
+		<Out Id="105" Obj="111" Prd="9" Sub="110"></Out>
+		<Out Id="106" Obj="112" Prd="9" Sub="110"></Out>
+		<Out Id="107" Obj="113" Prd="9" Sub="110"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="142">
+		<Attr Name="name" Value="Months"></Attr>
+		<Attr Name="meta-type" Value="enum(int)"></Attr>
+		<In Id="136" Obj="142" Prd="6" Sub="133"></In>
+		<Out Id="137" Obj="143" Prd="9" Sub="142"></Out>
+		<Out Id="138" Obj="144" Prd="9" Sub="142"></Out>
+		<Out Id="139" Obj="145" Prd="9" Sub="142"></Out>
+		<Out Id="140" Obj="146" Prd="9" Sub="142"></Out>
+		<Out Id="141" Obj="147" Prd="9" Sub="142"></Out>
+		<Out Id="142" Obj="148" Prd="9" Sub="142"></Out>
+		<Out Id="143" Obj="149" Prd="9" Sub="142"></Out>
+		<Out Id="144" Obj="150" Prd="9" Sub="142"></Out>
+		<Out Id="145" Obj="151" Prd="9" Sub="142"></Out>
+		<Out Id="146" Obj="152" Prd="9" Sub="142"></Out>
+		<Out Id="147" Obj="153" Prd="9" Sub="142"></Out>
+		<Out Id="148" Obj="154" Prd="9" Sub="142"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="14">
+		<Attr Name="name" Value="Id"></Attr>
+		<Attr Name="data-type" Value="int64"></Attr>
+		<In Id="9" Obj="14" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="47">
+		<Attr Name="name" Value="uint32"></Attr>
+		<Attr Name="meta-type" Value="primitive(uint32)"></Attr>
+		<In Id="41" Obj="47" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="79">
+		<Attr Name="name" Value="MetaType"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="73" Obj="79" Prd="9" Sub="77"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="111">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="105" Obj="111" Prd="9" Sub="110"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="143">
+		<Attr Name="name" Value="June"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="137" Obj="143" Prd="9" Sub="142"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="15">
+		<Attr Name="name" Value="nextNodeId"></Attr>
+		<Attr Name="data-type" Value="int64"></Attr>
+		<In Id="10" Obj="15" Prd="9" Sub="7"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="32">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="27" Obj="32" Prd="9" Sub="31"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="64">
+		<Attr Name="name" Value="Schema"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="58" Obj="64" Prd="6" Sub="55"></In>
+		<Out Id="59" Obj="65" Prd="9" Sub="64"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="96">
+		<Attr Name="name" Value="Import"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="90" Obj="96" Prd="6" Sub="76"></In>
+		<Out Id="91" Obj="97" Prd="9" Sub="96"></Out>
+		<Out Id="92" Obj="98" Prd="9" Sub="96"></Out>
+		<Out Id="93" Obj="99" Prd="9" Sub="96"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="128">
+		<Attr Name="name" Value="Name"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="122" Obj="128" Prd="9" Sub="127"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="160">
+		<Attr Name="name" Value="IsTerminal"></Attr>
+		<Attr Name="data-type" Value="bool"></Attr>
+		<In Id="154" Obj="160" Prd="9" Sub="158"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="0">
+		<Attr Name="name" Value="root"></Attr>
+		<Out Id="0" Obj="1" Prd="2" Sub="0"></Out>
+	</Node>
+	<Node Id="33">
+		<Attr Name="name" Value="Value"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="28" Obj="33" Prd="9" Sub="31"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="65">
+		<Attr Name="name" Value="Type"></Attr>
+		<Attr Name="data-type" Value="*reflect.Type"></Attr>
+		<In Id="59" Obj="65" Prd="9" Sub="64"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="97">
+		<Attr Name="name" Value="Alias"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="91" Obj="97" Prd="9" Sub="96"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="129">
+		<Attr Name="name" Value="Value"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="123" Obj="129" Prd="9" Sub="127"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="161">
+		<Attr Name="data-type" Value="ProductionKind"></Attr>
+		<Attr Name="name" Value="Kind"></Attr>
+		<In Id="155" Obj="161" Prd="9" Sub="158"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="1">
+		<Attr Name="name" Value="core"></Attr>
+		<Attr Name="path" Value="github.com/ReSc/godel"></Attr>
+		<In Id="0" Obj="1" Prd="2" Sub="0"></In>
+		<Out Id="1" Obj="3" Prd="4" Sub="1"></Out>
+		<Out Id="31" Obj="37" Prd="4" Sub="1"></Out>
+		<Out Id="44" Obj="50" Prd="4" Sub="1"></Out>
+		<Out Id="49" Obj="55" Prd="4" Sub="1"></Out>
+		<Out Id="70" Obj="76" Prd="4" Sub="1"></Out>
+		<Out Id="127" Obj="133" Prd="4" Sub="1"></Out>
+		<Out Id="150" Obj="156" Prd="4" Sub="1"></Out>
+		<Tag>model</Tag>
+	</Node>
+	<Node Id="34">
+		<Attr Name="name" Value="xml"></Attr>
+		<Attr Name="path" Value="encoding/xml"></Attr>
+		<In Id="29" Obj="34" Prd="35" Sub="3"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="66">
+		<Attr Name="name" Value="DockPanel"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="60" Obj="66" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="98">
+		<Attr Name="name" Value="Package"></Attr>
+		<Attr Name="data-type" Value="*Package"></Attr>
+		<In Id="92" Obj="98" Prd="9" Sub="96"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="130">
+		<Attr Name="name" Value="Accepter"></Attr>
+		<Attr Name="meta-type" Value="interface()"></Attr>
+		<In Id="124" Obj="130" Prd="6" Sub="76"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="162">
+		<Attr Name="name" Value="Parser"></Attr>
+		<Attr Name="data-type" Value="Parser"></Attr>
+		<In Id="156" Obj="162" Prd="9" Sub="158"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="2">
+		<Attr Name="name" Value="model"></Attr>
+		<In Id="0" Obj="1" Prd="2" Sub="0"></In>
+		<Tag>predicate</Tag>
+	</Node>
+	<Node Id="35">
+		<Attr Name="name" Value="import"></Attr>
+		<In Id="29" Obj="34" Prd="35" Sub="3"></In>
+		<In Id="30" Obj="36" Prd="35" Sub="3"></In>
+		<In Id="47" Obj="53" Prd="35" Sub="50"></In>
+		<In Id="48" Obj="54" Prd="35" Sub="50"></In>
+		<In Id="69" Obj="75" Prd="35" Sub="55"></In>
+		<In Id="125" Obj="131" Prd="35" Sub="76"></In>
+		<In Id="126" Obj="132" Prd="35" Sub="76"></In>
+		<In Id="149" Obj="155" Prd="35" Sub="133"></In>
+		<Tag>predicate</Tag>
+	</Node>
+	<Node Id="67">
+		<Attr Name="name" Value="TabPanel"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="61" Obj="67" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="99">
+		<Attr Name="data-type" Value="string"></Attr>
+		<Attr Name="name" Value="Path"></Attr>
+		<In Id="93" Obj="99" Prd="9" Sub="96"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="131">
+		<Attr Name="name" Value="sort"></Attr>
+		<Attr Name="path" Value="sort"></Attr>
+		<In Id="125" Obj="131" Prd="35" Sub="76"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="163">
+		<Attr Name="name" Value="ProductionKind"></Attr>
+		<Attr Name="meta-type" Value="primitive(int)"></Attr>
+		<In Id="157" Obj="163" Prd="6" Sub="156"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="3">
+		<Attr Name="name" Value="graph"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\graph"></Attr>
+		<In Id="1" Obj="3" Prd="4" Sub="1"></In>
+		<Out Id="2" Obj="5" Prd="6" Sub="3"></Out>
+		<Out Id="3" Obj="7" Prd="6" Sub="3"></Out>
+		<Out Id="11" Obj="16" Prd="6" Sub="3"></Out>
+		<Out Id="17" Obj="22" Prd="6" Sub="3"></Out>
+		<Out Id="18" Obj="23" Prd="6" Sub="3"></Out>
+		<Out Id="19" Obj="24" Prd="6" Sub="3"></Out>
+		<Out Id="20" Obj="25" Prd="6" Sub="3"></Out>
+		<Out Id="25" Obj="30" Prd="6" Sub="3"></Out>
+		<Out Id="26" Obj="31" Prd="6" Sub="3"></Out>
+		<Out Id="29" Obj="34" Prd="35" Sub="3"></Out>
+		<Out Id="30" Obj="36" Prd="35" Sub="3"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="36">
+		<Attr Name="name" Value="sort"></Attr>
+		<Attr Name="path" Value="sort"></Attr>
+		<In Id="30" Obj="36" Prd="35" Sub="3"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="68">
+		<Attr Name="name" Value="Page"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="62" Obj="68" Prd="6" Sub="55"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="100">
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<Attr Name="name" Value="MetaType"></Attr>
+		<In Id="94" Obj="100" Prd="6" Sub="76"></In>
+		<Out Id="95" Obj="101" Prd="9" Sub="100"></Out>
+		<Out Id="96" Obj="102" Prd="9" Sub="100"></Out>
+		<Out Id="97" Obj="103" Prd="9" Sub="100"></Out>
+		<Out Id="98" Obj="104" Prd="9" Sub="100"></Out>
+		<Out Id="99" Obj="105" Prd="9" Sub="100"></Out>
+		<Out Id="100" Obj="106" Prd="9" Sub="100"></Out>
+		<Out Id="101" Obj="107" Prd="9" Sub="100"></Out>
+		<Out Id="102" Obj="108" Prd="9" Sub="100"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="132">
+		<Attr Name="name" Value="xml"></Attr>
+		<Attr Name="path" Value="encoding/xml"></Attr>
+		<In Id="126" Obj="132" Prd="35" Sub="76"></In>
+		<Tag>import</Tag>
+	</Node>
+	<Node Id="164">
+		<Attr Name="name" Value="Scope"></Attr>
+		<Attr Name="meta-type" Value="interface()"></Attr>
+		<In Id="158" Obj="164" Prd="6" Sub="156"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="4">
+		<Attr Name="name" Value="package"></Attr>
+		<In Id="1" Obj="3" Prd="4" Sub="1"></In>
+		<In Id="31" Obj="37" Prd="4" Sub="1"></In>
+		<In Id="44" Obj="50" Prd="4" Sub="1"></In>
+		<In Id="49" Obj="55" Prd="4" Sub="1"></In>
+		<In Id="70" Obj="76" Prd="4" Sub="1"></In>
+		<In Id="127" Obj="133" Prd="4" Sub="1"></In>
+		<In Id="150" Obj="156" Prd="4" Sub="1"></In>
+		<Tag>predicate</Tag>
+	</Node>
+	<Node Id="37">
+		<Attr Name="name" Value="global"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\global"></Attr>
+		<In Id="31" Obj="37" Prd="4" Sub="1"></In>
+		<Out Id="32" Obj="38" Prd="6" Sub="37"></Out>
+		<Out Id="33" Obj="39" Prd="6" Sub="37"></Out>
+		<Out Id="34" Obj="40" Prd="6" Sub="37"></Out>
+		<Out Id="35" Obj="41" Prd="6" Sub="37"></Out>
+		<Out Id="36" Obj="42" Prd="6" Sub="37"></Out>
+		<Out Id="37" Obj="43" Prd="6" Sub="37"></Out>
+		<Out Id="38" Obj="44" Prd="6" Sub="37"></Out>
+		<Out Id="39" Obj="45" Prd="6" Sub="37"></Out>
+		<Out Id="40" Obj="46" Prd="6" Sub="37"></Out>
+		<Out Id="41" Obj="47" Prd="6" Sub="37"></Out>
+		<Out Id="42" Obj="48" Prd="6" Sub="37"></Out>
+		<Out Id="43" Obj="49" Prd="6" Sub="37"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="69">
+		<Attr Name="name" Value="DataSource"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="63" Obj="69" Prd="6" Sub="55"></In>
+		<Out Id="64" Obj="70" Prd="9" Sub="69"></Out>
+		<Out Id="65" Obj="71" Prd="9" Sub="69"></Out>
+		<Out Id="66" Obj="72" Prd="9" Sub="69"></Out>
+		<Out Id="67" Obj="73" Prd="9" Sub="69"></Out>
+		<Out Id="68" Obj="74" Prd="9" Sub="69"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="101">
+		<Attr Name="name" Value="Type"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="95" Obj="101" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="133">
+		<Attr Name="name" Value="cron"></Attr>
+		<Attr Name="path" Value="github.com\ReSc\godel\core\cron"></Attr>
+		<In Id="127" Obj="133" Prd="4" Sub="1"></In>
+		<Out Id="128" Obj="134" Prd="6" Sub="133"></Out>
+		<Out Id="136" Obj="142" Prd="6" Sub="133"></Out>
+		<Out Id="149" Obj="155" Prd="35" Sub="133"></Out>
+		<Tag>package</Tag>
+	</Node>
+	<Node Id="165">
+		<Attr Name="name" Value="Parser"></Attr>
+		<Attr Name="meta-type" Value="interface()"></Attr>
+		<In Id="159" Obj="165" Prd="6" Sub="156"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="5">
+		<Attr Name="name" Value="NodeMap"></Attr>
+		<Attr Name="meta-type" Value="map(*Node, Key:Id)"></Attr>
+		<In Id="2" Obj="5" Prd="6" Sub="3"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="38">
+		<Attr Name="meta-type" Value="primitive(bool)"></Attr>
+		<Attr Name="name" Value="bool"></Attr>
+		<In Id="32" Obj="38" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="70">
+		<Attr Name="name" Value="Schema"></Attr>
+		<Attr Name="data-type" Value="*Schema"></Attr>
+		<In Id="64" Obj="70" Prd="9" Sub="69"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="102">
+		<Attr Name="name" Value="KeyName"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="96" Obj="102" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="134">
+		<Attr Name="name" Value="WeekDays"></Attr>
+		<Attr Name="meta-type" Value="enum(int)"></Attr>
+		<In Id="128" Obj="134" Prd="6" Sub="133"></In>
+		<Out Id="129" Obj="135" Prd="9" Sub="134"></Out>
+		<Out Id="130" Obj="136" Prd="9" Sub="134"></Out>
+		<Out Id="131" Obj="137" Prd="9" Sub="134"></Out>
+		<Out Id="132" Obj="138" Prd="9" Sub="134"></Out>
+		<Out Id="133" Obj="139" Prd="9" Sub="134"></Out>
+		<Out Id="134" Obj="140" Prd="9" Sub="134"></Out>
+		<Out Id="135" Obj="141" Prd="9" Sub="134"></Out>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="6">
+		<Attr Name="name" Value="type"></Attr>
+		<In Id="2" Obj="5" Prd="6" Sub="3"></In>
+		<In Id="3" Obj="7" Prd="6" Sub="3"></In>
+		<In Id="11" Obj="16" Prd="6" Sub="3"></In>
+		<In Id="17" Obj="22" Prd="6" Sub="3"></In>
+		<In Id="18" Obj="23" Prd="6" Sub="3"></In>
+		<In Id="19" Obj="24" Prd="6" Sub="3"></In>
+		<In Id="20" Obj="25" Prd="6" Sub="3"></In>
+		<In Id="25" Obj="30" Prd="6" Sub="3"></In>
+		<In Id="26" Obj="31" Prd="6" Sub="3"></In>
+		<In Id="32" Obj="38" Prd="6" Sub="37"></In>
+		<In Id="33" Obj="39" Prd="6" Sub="37"></In>
+		<In Id="34" Obj="40" Prd="6" Sub="37"></In>
+		<In Id="35" Obj="41" Prd="6" Sub="37"></In>
+		<In Id="36" Obj="42" Prd="6" Sub="37"></In>
+		<In Id="37" Obj="43" Prd="6" Sub="37"></In>
+		<In Id="38" Obj="44" Prd="6" Sub="37"></In>
+		<In Id="39" Obj="45" Prd="6" Sub="37"></In>
+		<In Id="40" Obj="46" Prd="6" Sub="37"></In>
+		<In Id="41" Obj="47" Prd="6" Sub="37"></In>
+		<In Id="42" Obj="48" Prd="6" Sub="37"></In>
+		<In Id="43" Obj="49" Prd="6" Sub="37"></In>
+		<In Id="45" Obj="51" Prd="6" Sub="50"></In>
+		<In Id="50" Obj="56" Prd="6" Sub="55"></In>
+		<In Id="51" Obj="57" Prd="6" Sub="55"></In>
+		<In Id="52" Obj="58" Prd="6" Sub="55"></In>
+		<In Id="53" Obj="59" Prd="6" Sub="55"></In>
+		<In Id="54" Obj="60" Prd="6" Sub="55"></In>
+		<In Id="55" Obj="61" Prd="6" Sub="55"></In>
+		<In Id="56" Obj="62" Prd="6" Sub="55"></In>
+		<In Id="57" Obj="63" Prd="6" Sub="55"></In>
+		<In Id="58" Obj="64" Prd="6" Sub="55"></In>
+		<In Id="60" Obj="66" Prd="6" Sub="55"></In>
+		<In Id="61" Obj="67" Prd="6" Sub="55"></In>
+		<In Id="62" Obj="68" Prd="6" Sub="55"></In>
+		<In Id="63" Obj="69" Prd="6" Sub="55"></In>
+		<In Id="71" Obj="77" Prd="6" Sub="76"></In>
+		<In Id="78" Obj="84" Prd="6" Sub="76"></In>
+		<In Id="84" Obj="90" Prd="6" Sub="76"></In>
+		<In Id="89" Obj="95" Prd="6" Sub="76"></In>
+		<In Id="90" Obj="96" Prd="6" Sub="76"></In>
+		<In Id="94" Obj="100" Prd="6" Sub="76"></In>
+		<In Id="103" Obj="109" Prd="6" Sub="76"></In>
+		<In Id="104" Obj="110" Prd="6" Sub="76"></In>
+		<In Id="108" Obj="114" Prd="6" Sub="76"></In>
+		<In Id="109" Obj="115" Prd="6" Sub="76"></In>
+		<In Id="112" Obj="118" Prd="6" Sub="76"></In>
+		<In Id="116" Obj="122" Prd="6" Sub="76"></In>
+		<In Id="117" Obj="123" Prd="6" Sub="76"></In>
+		<In Id="118" Obj="124" Prd="6" Sub="76"></In>
+		<In Id="119" Obj="125" Prd="6" Sub="76"></In>
+		<In Id="120" Obj="126" Prd="6" Sub="76"></In>
+		<In Id="121" Obj="127" Prd="6" Sub="76"></In>
+		<In Id="124" Obj="130" Prd="6" Sub="76"></In>
+		<In Id="128" Obj="134" Prd="6" Sub="133"></In>
+		<In Id="136" Obj="142" Prd="6" Sub="133"></In>
+		<In Id="151" Obj="157" Prd="6" Sub="156"></In>
+		<In Id="152" Obj="158" Prd="6" Sub="156"></In>
+		<In Id="157" Obj="163" Prd="6" Sub="156"></In>
+		<In Id="158" Obj="164" Prd="6" Sub="156"></In>
+		<In Id="159" Obj="165" Prd="6" Sub="156"></In>
+		<Tag>predicate</Tag>
+	</Node>
+	<Node Id="39">
+		<Attr Name="name" Value="byte"></Attr>
+		<Attr Name="meta-type" Value="primitive(byte)"></Attr>
+		<In Id="33" Obj="39" Prd="6" Sub="37"></In>
+		<Tag>type</Tag>
+	</Node>
+	<Node Id="71">
+		<Attr Name="name" Value="DataMember"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="65" Obj="71" Prd="9" Sub="69"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="103">
+		<Attr Name="name" Value="KeyType"></Attr>
+		<Attr Name="data-type" Value="string"></Attr>
+		<In Id="97" Obj="103" Prd="9" Sub="100"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="135">
+		<Attr Name="name" Value="Sunday"></Attr>
+		<Attr Name="data-type" Value=""></Attr>
+		<In Id="129" Obj="135" Prd="9" Sub="134"></In>
+		<Tag>field</Tag>
+	</Node>
+	<Node Id="7">
+		<Attr Name="name" Value="Graph"></Attr>
+		<Attr Name="meta-type" Value="struct()"></Attr>
+		<In Id="3" Obj="7" Prd="6" Sub="3"></In>
+		<Out Id="4" Obj="8" Prd="9" Sub="7"></Out>
+		<Out Id="5" Obj="10" Prd="9" Sub="7"></Out>
+		<Out Id="6" Obj="11" Prd="9" Sub="7"></Out>
+		<Out Id="7" Obj="12" Prd="9" Sub="7"></Out>
+		<Out Id="8" Obj="13" Prd="9" Sub="7"></Out>
+		<Out Id="9" Obj="14" Prd="9" Sub="7"></Out>
+		<Out Id="10" Obj="15" Prd="9" Sub="7"></Out>
+		<Tag>type</Tag>
+	</Node>
+</Graph>

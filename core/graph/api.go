@@ -1,5 +1,10 @@
 package graph
 
+import (
+	"encoding/xml"
+	"strings"
+)
+
 func (this AttrMap) Set(key, value string) {
 	if attr, ok := this[key]; ok {
 		attr.Value = value
@@ -108,4 +113,67 @@ func (n *Node) Name() string {
 		return a.Value
 	}
 	return ""
+}
+
+func (m NodeMap) MarshalXML(d *xml.Encoder, start xml.StartElement) error {
+	keys := m.Keys()
+	start.Attr = nil
+	start.Name.Local = "Node"
+
+	for _, key := range keys {
+		err := d.EncodeElement(m[key], start)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (m EdgeMap) MarshalXML(d *xml.Encoder, start xml.StartElement) error {
+	keys := m.Keys()
+	start.Attr = nil
+	start.Name.Local = strings.TrimSuffix(start.Name.Local, "Edges")
+	for _, key := range keys {
+		err := d.EncodeElement(m[key], start)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (m EdgeList) MarshalXML(d *xml.Encoder, start xml.StartElement) error {
+	start.Attr = nil
+	start.Name.Local = strings.TrimSuffix(start.Name.Local, "Edges")
+	for key := range m {
+		err := d.EncodeElement(m[key], start)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (m AttrMap) MarshalXML(d *xml.Encoder, start xml.StartElement) error {
+	keys := m.Keys()
+	start.Attr = nil
+	start.Name.Local = "Attr"
+	for _, key := range keys {
+		err := d.EncodeElement(m[key], start)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (m TagSet) MarshalXML(d *xml.Encoder, start xml.StartElement) error {
+	start.Attr = nil
+	start.Name.Local = "Tag"
+	for key, _ := range m {
+		err := d.EncodeElement(key, start)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
