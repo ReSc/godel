@@ -1,7 +1,6 @@
 package mvc
 
 import (
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
@@ -11,6 +10,8 @@ import (
 	"sync"
 	"time"
 	"unicode"
+
+	"github.com/gorilla/mux"
 )
 
 type DispatcherConfig struct {
@@ -77,18 +78,35 @@ func (d *Dispatcher) initSupportedHttpMethods() {
 	}
 }
 
+func normalizePrefix(prefix string) string {
+	if prefix == "/" {
+		prefix = ""
+	} else if !strings.HasPrefix(prefix, "/") {
+		prefix = "/" + prefix
+	}
+	return prefix
+}
+
 func (d *Dispatcher) initRouter() {
 	if d.config.Router == nil {
 		d.config.Router = mux.NewRouter()
 		d.router = d.config.Router
 	}
 
-	prefix := d.config.PathPrefix
+	prefix := normalizePrefix(d.config.PathPrefix)
+	d.config.PathPrefix = prefix
+
 	parts := strings.Split("/{controller}/{action}/{id}", "/")
 	l := len(parts)
 	for i := range parts {
 		path := strings.Join(parts[:l-i], "/")
-		d.router.PathPrefix(prefix).Path(path).HandlerFunc(d.dispatch)
+		var r *mux.Route
+		if len(prefix) > 0 {
+			r = d.router.PathPrefix(prefix).Path(path)
+		} else {
+			r = d.router.Path(path)
+		}
+		r.HandlerFunc(d.dispatch)
 	}
 }
 
@@ -118,6 +136,22 @@ type controllerConfig struct {
 	viewBasePath string
 }
 
+func makeAbsolutePath(parts ...string) string {
+	path := strings.Join(parts, "/")
+	path = strings.Replace(path, "\\", "/", -1)
+	parts = strings.Split(path, "/")
+
+	var tmp []string
+	for _, part := range parts {
+		if len(part) > 0 {
+			tmp = append(tmp, part)
+		}
+	}
+
+	path = "/" + strings.Join(tmp, "/")
+	return path
+}
+
 func (d *Dispatcher) register(cc *controllerConfig) {
 	c := cc.factory()
 	name := getControllerName(c)
@@ -132,10 +166,8 @@ func (d *Dispatcher) register(cc *controllerConfig) {
 				name := m.Name[len(httpMethod):]
 				name = toSpinalCase(name)
 				if cc.actions.Add(c, httpMethod, name, m.Func) {
-					if name != "" {
-						name = "/" + name
-					}
-					d.log.Printf("Registered %s %s/%s%s\n", httpMethod, d.config.PathPrefix, cc.name, name)
+					fullPath := makeAbsolutePath(d.config.PathPrefix, cc.name, name)
+					d.log.Printf("Registered %s %s\n", httpMethod, fullPath)
 				}
 			}
 		}

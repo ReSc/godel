@@ -3,12 +3,13 @@ package mvc
 import (
 	"encoding/json"
 	"encoding/xml"
-	"github.com/gorilla/schema"
 	"html/template"
 	"net/http"
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/gorilla/schema"
 )
 
 // ControllerFactory is a function that creates a single type of Controller
@@ -164,7 +165,7 @@ func (c *ControllerBase) ViewAt(controller, action string, model interface{}) ht
 	if len(action) > 0 {
 		parts = append(parts, action+viewPostFix)
 	} else {
-		c.InternalServerError("Empty template")
+		return c.InternalServerError("Empty template")
 	}
 
 	path := filepath.Join(parts...)

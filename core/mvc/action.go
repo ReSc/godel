@@ -1,9 +1,10 @@
 package mvc
 
 import (
-	"github.com/ReSc/fmt"
 	"net/http"
 	"reflect"
+
+	"github.com/ReSc/fmt"
 )
 
 type action struct {
