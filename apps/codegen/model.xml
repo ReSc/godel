@@ -29,49 +29,9 @@
 
 		<import alias="graph" path="../graph"/>
 
-		<type name="ModelGraphBuilder" meta-type="struct()" >
-
-			<field name="Graph" data-type="*graph.Graph" value="graph.NewGraph()" />
-
-			<method name="VisitModel"  ><param name="m" data-type="*reflect.Model"   /></method>
-			<method name="VisitPackage"><param name="p" data-type="*reflect.Package" /></method>
-			<method name="VisitType"   ><param name="t" data-type="*reflect.Type"    /></method>
-			<method name="VisitField"  ><param name="f" data-type="*reflect.Field"   /></method>
-			<method name="VisitMethod" ><param name="m" data-type="*reflect.Method"  /></method>
-
-		</type>
-
 	</package>
 
-	<package name="mirror">
-
-		<import alias="reflect" path="../reflect"/>
-
-		<type name="Page" meta-type="struct()" ></type>
-		<type name="Layout" meta-type="struct()" ></type>
-		<type name="DataSource" meta-type="struct()" >
-			<field name="Schema" data-type="*Schema" value="NewSchema()" />
-			<field name="DataMember" data-type="string" />
-			<field name="DataValue" data-type="string" />
-			<field name="Current" data-type="Any"/>
-			<field name="CurrentIndex" data-type="int"/>
-		</type>
-		<type name="Any" meta-type="interface()" ></type>
-		<type name="Schema" meta-type="struct()" >
-			<field name="Type" data-type="*reflect.Type" />
-		</type>
-		<type name="Table" meta-type="struct()" ></type>
-		<type name="Stack" meta-type="struct()" ></type>
-		<type name="DockContainer" meta-type="struct()" ></type>
-		<type name="DockPanel" meta-type="struct()" ></type>
-		<type name="Label" meta-type="struct()" ></type>
-		<type name="Input" meta-type="struct()" ></type>
-		<type name="TabContainer" meta-type="struct()" ></type>
-		<type name="TabPanel" meta-type="struct()" ></type>
-
-	</package>
-
-	<package name="reflect2">
+	<package name="reflect">
 
 		<import path="encoding/xml"/>
 		<import path="sort"/>
@@ -99,6 +59,40 @@
 			<method name="VisitType"   ><param name="t" data-type="*Type"    /></method>
 			<method name="VisitField"  ><param name="f" data-type="*Field"   /></method>
 			<method name="VisitMethod" ><param name="m" data-type="*Method"  /></method>
+		</type>
+
+		<type name="Converter" meta-type="interface()" >
+			<method name="CanConvertTo" >
+				<param name="value" data-type="interface{}" />
+			</method>
+			<method name="CanConvertFrom" >
+				<param name="value" data-type="interface{}" />
+			</method>
+			<method name="Convert" >
+				<param name="from"  data-type="interface{}" />
+				<param name="to" data-type="interface{}" />
+				<return name="succes" data-type="bool" />
+			</method>
+			<method name="ConvertFrom" >
+				<param  name="value"  data-type="interface{}" />
+				<return name="result" data-type="interface{}" />
+				<return name="err"    data-type="error" />
+			</method>
+			<method name="ConvertTo" >
+				<param  name="value"  data-type="interface{}" />
+				<param  name="typ"  data-type="interface{}" />
+				<return name="result" data-type="interface{}" />
+				<return name="err"    data-type="error" />
+			</method>
+			<method name="ToString" >
+				<param  name="value"  data-type="interface{}" />
+				<return name="result" data-type="string" />
+			</method>
+			<method name="FromString" >
+				<param  name="value"  data-type="string" />
+				<return name="result" data-type="interface{}" />
+				<return name="err"    data-type="error" />
+			</method>
 		</type>
 
 		<type name="PackageMap" meta-type="map(*Package, Key:Name)" />
@@ -263,36 +257,7 @@
 		</type>
 
 	</package>
-<!--
-	<package name="sparql">
 
-		<type name="Production" meta-type="struct()">
-			<field name="Name" data-type="string" />
-			<field name="Kind" data-type="ProductionKind" />
-			<field name="Parser" data-type="Parser"/>
-		</type>
-
-		<type name="ProductionKind" meta-type="primitive(int)"/>
-
-		<type name="Sparql" meta-type="ebnf(*Production, Key:Kind)" />
-		<type name="Parser" meta-type="interface()">
-			<method name="Parse" >
-				<param name="s" data-type="string" />
-				<return name="unparsed" data-type="string" />
-				<return name="ok" data-type="bool" />
-			</method>
-
-			<method name="String" >
-				<return name="s" data-type="string" />
-			</method>
-
-			<method name="LookAhead" >
-				<param name="s" data-type="rune" />
-				<return name="ok" data-type="bool" />
-			</method>
-		</type>
-	</package>
--->
 	<package name="ebnf">
 
 		<type name="Ebnf" meta-type="ebnf(*parser, Key:Kind)" />
@@ -380,24 +345,39 @@
 		</type>
 
 		<type name="Node" meta-type="struct()">
-			<field name="Id" data-type="int64" />
-			<field name="Tags" data-type="TagSet" />
-			<field name="Attrs" data-type="AttrMap" />
-			<field name="InEdges" data-type="EdgeList" />
-			<field name="OutEdges" data-type="EdgeList" />
+			<field name="Id" data-type="int64" >
+				<attr name="xml" value="id,attr"/>
+			</field>
+			<field name="Tags" data-type="TagSet" >
+				<attr name="xml" value="tag"/>
+			</field>
+			<field name="Attrs" data-type="AttrMap" >
+				<attr name="xml" value="attr,attr"/>
+			</field>
+			<field name="InEdges" data-type="EdgeList" >
+				<attr name="xml" value="in"/>
+			</field>
+			<field name="OutEdges" data-type="EdgeList" >
+				<attr name="xml" value="out,attr"/>
+			</field>
 		</type>
 
 		<type name="EdgeList" meta-type="list(*Edge)" />
 		<type name="EdgeMap" meta-type="map(*Edge, Key:Id)" />
 
 		<type name="Edge" meta-type="struct()" >
-			<field name="Id" data-type="int64" />
-			<field name="Sub" data-type="int64" />
-			<field name="Prd" data-type="int64" />
-			<field name="Obj" data-type="int64" />
-			<!--
-			<field name="Txn" data-type="*Node" />
-			-->
+			<field name="Id" data-type="int64" >
+				<attr name="xml" value="id,attr"/>
+			</field>
+			<field name="Sub" data-type="int64" >
+				<attr name="xml" value="sub,attr"/>
+			</field>
+			<field name="Prd" data-type="int64" >
+				<attr name="xml" value="prd,attr"/>
+			</field>
+			<field name="Obj" data-type="int64" >
+				<attr name="xml" value="obj,attr"/>
+			</field>
 		</type>
 
 		<type name="TagSet" meta-type="set(string)" />
@@ -405,8 +385,12 @@
 		<type name="AttrMap" meta-type="map(*Attr, Key:Name)" />
 
 		<type name="Attr" meta-type="struct()" >
-			<field name="Name" data-type="string" />
-			<field name="Value" data-type="string" />
+			<field name="Name" data-type="string" >
+				<attr name="xml" value="name,attr"/>
+			</field>
+			<field name="Value" data-type="string" >
+				<attr name="xml" value="value,attr"/>
+			</field>
 		</type>
 
 	</package>

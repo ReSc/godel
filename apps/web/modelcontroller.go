@@ -13,11 +13,7 @@ type ModelController struct {
 
 func (c *ModelController) ensureModel() {
 	if c.model == nil {
-		m, err := reflect.LoadModelFile("./data/model.xml")
-		if err != nil {
-			panic(err)
-		}
-		c.model = m
+		panic("model not available")
 	}
 }
 

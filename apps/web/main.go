@@ -1,11 +1,12 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/ReSc/godel/core/graph"
 	"github.com/ReSc/godel/core/mvc"
 	"github.com/ReSc/godel/core/reflect"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 func main() {

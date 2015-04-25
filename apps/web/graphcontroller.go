@@ -22,10 +22,12 @@ func (c *GraphController) PostLoad() http.Handler {
 func (c *GraphController) PostSave() http.Handler {
 	path := "./data/graph.xml"
 	file, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC, 0x755)
-	defer file.Close()
 	if err != nil {
 		return c.InternalServerError(err.Error())
+	} else {
+		defer file.Close()
 	}
+
 	e := xml.NewEncoder(file)
 	e.Indent("", "\t")
 	err = e.Encode(c.graph)
@@ -59,12 +61,14 @@ func (c *GraphController) GetNavigator() http.Handler {
 		Out   []*Edge  `json:"out"`
 	}
 
-	result := &Node{}
-	nn := c.graph.Nodes
 	if id, ok := c.IdAsInt64(); ok {
+		nn := c.graph.Nodes
 		if n, ok := nn[id]; ok {
-			result.Id = id
-			result.Name = n.Name()
+			result := &Node{
+				Id:   id,
+				Name: n.Name(),
+			}
+
 			for tag, _ := range n.Tags {
 				result.Tags = append(result.Tags, tag)
 			}
@@ -82,6 +86,7 @@ func (c *GraphController) GetNavigator() http.Handler {
 					PredName: nn[e.Prd].Name(),
 				})
 			}
+
 			for _, e := range n.OutEdges {
 				result.Out = append(result.Out, &Edge{
 					Id:       e.Id,
@@ -91,6 +96,7 @@ func (c *GraphController) GetNavigator() http.Handler {
 					PredName: nn[e.Prd].Name(),
 				})
 			}
+
 			return c.View(result)
 		}
 	}
@@ -134,6 +140,7 @@ func (c *GraphController) PostNodeCreate() http.Handler {
 	type Form struct {
 		Name string `json:"name"`
 	}
+
 	form := new(Form)
 	if err := c.FormBody(form); err == nil {
 		n := c.graph.NewNode(form.Name)
@@ -142,6 +149,7 @@ func (c *GraphController) PostNodeCreate() http.Handler {
 	} else {
 		return c.InternalServerError(err.Error())
 	}
+
 	return c.BadRequest()
 }
 
