@@ -2,7 +2,7 @@
 	angular.
 	module("godel").
 	factory("Packages", function($resource){
-		return $resource("/api/v1/Model/Package/:id")
+		return $resource("/api/v1/model/package/:id")
 	}).
 	controller("PackageListController",
 	function($scope, $location, Packages) {

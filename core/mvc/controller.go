@@ -182,6 +182,7 @@ var viewPostFix = ".html"
 
 func (c *ControllerBase) parseAndRender(path string, model interface{}) http.Handler {
 	t, err := template.ParseFiles(path)
+
 	if err != nil {
 		return c.InternalServerError(err.Error())
 	}
